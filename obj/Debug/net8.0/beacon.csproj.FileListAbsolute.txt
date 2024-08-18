@@ -1,0 +1,15 @@
+/home/jaden/assignments/PRG/beacon/bin/Debug/net8.0/beacon
+/home/jaden/assignments/PRG/beacon/bin/Debug/net8.0/beacon.deps.json
+/home/jaden/assignments/PRG/beacon/bin/Debug/net8.0/beacon.runtimeconfig.json
+/home/jaden/assignments/PRG/beacon/bin/Debug/net8.0/beacon.dll
+/home/jaden/assignments/PRG/beacon/bin/Debug/net8.0/beacon.pdb
+/home/jaden/assignments/PRG/beacon/obj/Debug/net8.0/beacon.GeneratedMSBuildEditorConfig.editorconfig
+/home/jaden/assignments/PRG/beacon/obj/Debug/net8.0/beacon.AssemblyInfoInputs.cache
+/home/jaden/assignments/PRG/beacon/obj/Debug/net8.0/beacon.AssemblyInfo.cs
+/home/jaden/assignments/PRG/beacon/obj/Debug/net8.0/beacon.csproj.CoreCompileInputs.cache
+/home/jaden/assignments/PRG/beacon/obj/Debug/net8.0/beacon.sourcelink.json
+/home/jaden/assignments/PRG/beacon/obj/Debug/net8.0/beacon.dll
+/home/jaden/assignments/PRG/beacon/obj/Debug/net8.0/refint/beacon.dll
+/home/jaden/assignments/PRG/beacon/obj/Debug/net8.0/beacon.pdb
+/home/jaden/assignments/PRG/beacon/obj/Debug/net8.0/beacon.genruntimeconfig.cache
+/home/jaden/assignments/PRG/beacon/obj/Debug/net8.0/ref/beacon.dll

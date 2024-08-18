@@ -1,0 +1,29 @@
+﻿/*
+* C# Program for checking student-subitted code and determining if it at meets some standard
+* for what could be considered "safe" code.
+*
+* SHOULD INCLUDE
+* 1. Classes and objects
+* 2. Custom threads
+* 3. Custom events and delegates
+* 4. Interfaces (custom and built-in)
+* 5. Polymorphism
+* 6. Custom and built-in exceptions
+* 7. Security measures
+*/
+using System.IO.Compression;
+
+class Beacon {
+	static void Main(string[] args) {
+		Console.WriteLine($"passed args: {string.Join(", ", args)}");
+
+		ZipArchive zip = ZipFile.OpenRead(args[0]);
+		foreach (ZipArchiveEntry entry in zip.Entries) Console.WriteLine(entry.FullName);
+
+		// planned analysers should probably check for the following:
+		// 1. if the zip file is password protected
+		// * - if the zip file is password protected, check if the password can be cracked
+		// 2. if the zip file contains any malicious files
+		// 3. if the zip file contains any files that are too large
+	}
+}
