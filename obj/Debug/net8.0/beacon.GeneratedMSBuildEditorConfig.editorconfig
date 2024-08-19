@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = beacon
-build_property.ProjectDir = /home/jaden/assignments/PRG/beacon/
+build_property.ProjectDir = C:\Users\janco\Desktop\GitHub\beacon\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

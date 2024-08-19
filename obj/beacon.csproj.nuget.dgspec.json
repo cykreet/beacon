@@ -1,25 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "/home/jaden/assignments/PRG/beacon/beacon.csproj": {}
+    "C:\\Users\\janco\\Desktop\\GitHub\\beacon\\beacon.csproj": {}
   },
   "projects": {
-    "/home/jaden/assignments/PRG/beacon/beacon.csproj": {
+    "C:\\Users\\janco\\Desktop\\GitHub\\beacon\\beacon.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/jaden/assignments/PRG/beacon/beacon.csproj",
+        "projectUniqueName": "C:\\Users\\janco\\Desktop\\GitHub\\beacon\\beacon.csproj",
         "projectName": "beacon",
-        "projectPath": "/home/jaden/assignments/PRG/beacon/beacon.csproj",
-        "packagesPath": "/home/jaden/.nuget/packages/",
-        "outputPath": "/home/jaden/assignments/PRG/beacon/obj/",
+        "projectPath": "C:\\Users\\janco\\Desktop\\GitHub\\beacon\\beacon.csproj",
+        "packagesPath": "C:\\Users\\janco\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\janco\\Desktop\\GitHub\\beacon\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/jaden/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\janco\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -32,6 +39,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -53,7 +65,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.107/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
