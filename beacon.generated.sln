@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "beacon", "beacon.csproj", "{659AA9A9-2409-471F-9357-B477950C4A42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "beacon", "beacon.csproj", "{29A60595-835C-494B-8C3A-C3175ED7C49A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{659AA9A9-2409-471F-9357-B477950C4A42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{659AA9A9-2409-471F-9357-B477950C4A42}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{659AA9A9-2409-471F-9357-B477950C4A42}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{659AA9A9-2409-471F-9357-B477950C4A42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29A60595-835C-494B-8C3A-C3175ED7C49A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29A60595-835C-494B-8C3A-C3175ED7C49A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29A60595-835C-494B-8C3A-C3175ED7C49A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29A60595-835C-494B-8C3A-C3175ED7C49A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -13,8 +13,11 @@ class TestResult {
 class WorkspaceTestRunner {
   public event EventHandler<TestResult>? testComplete;
   private readonly WorkspaceTest[] tests = [
+    // new SizeWorkspaceTest(),
     new ExtensionWorkspaceTest(),
-    // new SizeWorkspaceTest()
+    new EncryptionWorkspaceTest(),
+    // new CsharpWorkspaceTest(),
+    // new JavaScriptWorkspaceTest(),
   ];
 
   public void enableTest<Type>() where Type : WorkspaceTest {

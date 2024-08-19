@@ -13,7 +13,7 @@ class TestDescriptionAttribute(string description) : Attribute {
 }
 
 class TestContext {
-  public required ZipArchive zipArchive { get; set; }
+  public required ZipReader zipArchive { get; set; }
 }
 
 abstract class WorkspaceTest {
