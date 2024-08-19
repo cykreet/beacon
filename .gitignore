@@ -398,3 +398,8 @@ FodyWeavers.xsd
 *.sln.iml
 
 cpp-test
+
+# archive generation
+!test.zip
+*.zip
+scripts/bin
