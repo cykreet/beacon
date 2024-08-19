@@ -12,8 +12,8 @@ class TestDescriptionAttribute(string description) : Attribute {
   public string description { get; } = description;
 }
 
-public class TestContext(ZipArchive zipArchive) {
-  public ZipArchive zipArchive { get; } = zipArchive;
+class TestContext {
+  public required ZipArchive zipArchive { get; set; }
 }
 
 abstract class WorkspaceTest {
