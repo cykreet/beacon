@@ -12,39 +12,44 @@
 * 7. Security measures
 */
 using System.IO.Compression;
+using Beacon.WorkspaceTests;
 
-class Beacon {
-	static void Main(string[] args) {
-		Console.WriteLine($"passed args: {string.Join(", ", args)}");
+namespace Beacon {
+  class Program {
+    static void Main(string[] args) {
+      // dotnet run ./test.zip
+      Console.WriteLine($"passed args: {string.Join(", ", args)}");
 
-		ZipArchive zip = ZipFile.OpenRead(args[0]);
-		WorkspaceContext context = new WorkspaceContext(zip);
-		ExtensionAnalyser extensionAnalyser = new ExtensionAnalyser(context);
-		bool valid = extensionAnalyser.Analyse();
-		Console.WriteLine(valid ? "Valid" : "Invalid");
+      ZipArchive zip = ZipFile.OpenRead(args[0]);
+      TestContext context = new TestContext(zip);
 
-		// planned analysers should probably check for the following:
-		// 1. if the zip file is password protected
-		// * - if the zip file is password protected, check if the password can be cracked
-		// 2. if the zip file contains any malicious files
-		// 3. if the zip file contains any files that are too large
+      // planned tests should probably check for the following:
+      // 1. if the zip file is password protected
+      // * - if the zip file is password protected, check if the password can be cracked
+      // 2. if the zip file contains any malicious files
+      // 3. if the zip file contains any files that are too large
+      WorkspaceTestRunner runner = new WorkspaceTestRunner();
+      runner.enableTest<ExtensionBeaconTest>();
+      List<TestResult> results = runner.runTests(context);
+
+      results.ForEach((result) => Console.WriteLine($"{result.name}: {(result.passed ? "Passed" : "Failed")}"));
 
 
+      //steps
 
-		//steps
+      //prompt user to upload file
+      //check if file is a zip file
+      //check zip size
 
-		//prompt user to upload file
-		//check if file is a zip file
-		//check zip size
+      //check if zip file is password protected
+      //if password protected, check if password can be cracked
 
-		//check if zip file is password protected
-		//if password protected, check if password can be cracked
+      //prompt for expected file types
+      //check if zip file contains any malicious files
 
-		//prompt for expected file types
-		//check if zip file contains any malicious files
-
-		//prompt for appropriate size when unzipped
-		//start unzip
-		//stop unzip when prompted size is reached
-	}
+      //prompt for appropriate size when unzipped
+      //start unzip
+      //stop unzip when prompted size is reached
+    }
+  }
 }
