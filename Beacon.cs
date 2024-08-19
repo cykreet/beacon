@@ -28,5 +28,23 @@ class Beacon {
 		// * - if the zip file is password protected, check if the password can be cracked
 		// 2. if the zip file contains any malicious files
 		// 3. if the zip file contains any files that are too large
+
+
+
+		//steps
+
+		//prompt user to upload file
+		//check if file is a zip file
+		//check zip size
+
+		//check if zip file is password protected
+		//if password protected, check if password can be cracked
+
+		//prompt for expected file types
+		//check if zip file contains any malicious files
+
+		//prompt for appropriate size when unzipped
+		//start unzip
+		//stop unzip when prompted size is reached
 	}
 }
