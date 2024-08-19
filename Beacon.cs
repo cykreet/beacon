@@ -29,7 +29,7 @@ namespace Beacon {
       // 2. if the zip file contains any malicious files
       // 3. if the zip file contains any files that are too large
       WorkspaceTestRunner runner = new WorkspaceTestRunner();
-      runner.enableTest<ExtensionBeaconTest>();
+      runner.enableTest<ExtensionWorkspaceTest>();
       List<TestResult> results = runner.runTests(context);
 
       results.ForEach((result) => Console.WriteLine($"{result.name}: {(result.passed ? "Passed" : "Failed")}"));

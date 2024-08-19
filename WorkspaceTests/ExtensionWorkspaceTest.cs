@@ -3,7 +3,7 @@ using Beacon.WorkspaceTests;
 
 [TestName("Extension Test")]
 [TestDescription("Validates that the workspace only contains files with allowed extensions.")]
-class ExtensionBeaconTest : WorkspaceTest {
+class ExtensionWorkspaceTest : WorkspaceTest {
   private readonly string[] allowedExtensions = [".cs", ".java", ".py"];
 
   public override bool validate(TestContext context) {

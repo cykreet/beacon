@@ -10,7 +10,7 @@ public class TestResult {
 
 class WorkspaceTestRunner {
   private readonly WorkspaceTest[] tests = [
-    new ExtensionBeaconTest(),
+    new ExtensionWorkspaceTest(),
     // new SizeBeaconTest()
   ];
 
