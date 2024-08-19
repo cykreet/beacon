@@ -18,7 +18,10 @@ class Beacon {
 		Console.WriteLine($"passed args: {string.Join(", ", args)}");
 
 		ZipArchive zip = ZipFile.OpenRead(args[0]);
-		foreach (ZipArchiveEntry entry in zip.Entries) Console.WriteLine(entry.FullName);
+		WorkspaceContext context = new WorkspaceContext(zip);
+		ExtensionAnalyser extensionAnalyser = new ExtensionAnalyser(context);
+		bool valid = extensionAnalyser.Analyse();
+		Console.WriteLine(valid ? "Valid" : "Invalid");
 
 		// planned analysers should probably check for the following:
 		// 1. if the zip file is password protected
