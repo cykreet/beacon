@@ -32,6 +32,7 @@ namespace Beacon {
       WorkspaceTestRunner testRunner = new WorkspaceTestRunner();
       testRunner.enableTest<ExtensionWorkspaceTest>();
       testRunner.enableTest<EncryptionWorkspaceTest>();
+      testRunner.enableTest<SizeWorkspaceTest>();
       testRunner.testComplete += onTestComplete;
       testRunner.runTests(zipReader);
 
