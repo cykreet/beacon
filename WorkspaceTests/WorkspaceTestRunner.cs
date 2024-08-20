@@ -1,16 +1,18 @@
+using System;
 using System.Reflection;
+using System.Threading;
 
-namespace Beacon.WorkspaceTests;
+namespace WorkspaceTests;
 
-class TestNotFoundException(string name) : Exception($"Test {name} not found.") { }
+internal class TestNotFoundException(string name) : Exception($"Test {name} not found.") { }
 
-readonly struct TestResult(string name, string description, bool passed) {
+internal readonly struct TestResult(string name, string description, bool passed) {
   public readonly string name = name;
   public readonly string description = description;
   public readonly bool passed = passed;
 }
 
-class WorkspaceTestRunner {
+internal class WorkspaceTestRunner {
   public event EventHandler<TestResult>? testComplete;
   private readonly WorkspaceTest[] tests = [
     new SizeWorkspaceTest(),
@@ -59,7 +61,7 @@ class WorkspaceTestRunner {
     };
   }
 
-  protected void onTestComplete(TestResult result) {
+  private void onTestComplete(TestResult result) {
     testComplete?.Invoke(this, result);
   }
 }

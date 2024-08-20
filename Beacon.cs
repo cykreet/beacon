@@ -14,35 +14,35 @@
 
 using System;
 using System.Windows.Forms;
-using Beacon.WorkspaceTests;
+using WorkspaceTests;
 
-namespace Beacon {
-  class Program {
-    [STAThread]
-    static void Main(string[] args) {
-      Application.EnableVisualStyles();
-      Application.SetCompatibleTextRenderingDefault(false);
-      Application.Run();
-      
-      // steps
-      // prompt user to upload file
-      // check if file is a zip file
-      // check zip size
+namespace Beacon;
 
-      // check if zip file is password protected
-      // if password protected, check if password can be cracked
+internal class Program {
+  [STAThread]
+  static void Main(string[] args) {
+    Application.EnableVisualStyles();
+    Application.SetCompatibleTextRenderingDefault(false);
+    Application.Run(new MainForm());
+    
+    // steps
+    // prompt user to upload file
+    // check if file is a zip file
+    // check zip size
 
-      // prompt for expected file types
-      // check if zip file contains any malicious files
+    // check if zip file is password protected
+    // if password protected, check if password can be cracked
 
-      // prompt for appropriate size when unzipped
-      // start unzip
-      // stop unzip when prompted size is reached
-    }
+    // prompt for expected file types
+    // check if zip file contains any malicious files
 
-    static void onTestComplete(object? sender, TestResult result) {
-      // colours: https://stackoverflow.com/a/74807043
-      Sentry.info($"{result.name} Test completed: \x1b[1m{(result.passed ? "\x1b[92mPASSED" : "\x1b[91mFAILED")}\x1b[22m\x1b[39m");
-    }
+    // prompt for appropriate size when unzipped
+    // start unzip
+    // stop unzip when prompted size is reached
+  }
+
+  private static void onTestComplete(object? sender, TestResult result) {
+    // colours: https://stackoverflow.com/a/74807043
+    Sentry.info($"{result.name} Test completed: \x1b[1m{(result.passed ? "\x1b[92mPASSED" : "\x1b[91mFAILED")}\x1b[22m\x1b[39m");
   }
 }

@@ -1,20 +1,22 @@
-namespace Beacon.WorkspaceTests;
+using System;
+
+namespace WorkspaceTests;
 
 [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-class TestNameAttribute(string name) : Attribute {
+internal class TestNameAttribute(string name) : Attribute {
   public string name { get; } = name;
 }
 
 [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-class TestDescriptionAttribute(string description) : Attribute {
+internal class TestDescriptionAttribute(string description) : Attribute {
   public string description { get; } = description;
 }
 
-struct TestContext {
-  public required ZipReader zipArchive { get; set; }
+internal struct TestContext {
+  public ZipReader zipArchive { get; set; }
 }
 
-abstract class WorkspaceTest {
+internal abstract class WorkspaceTest {
   public bool enabled { get; set; } = false;
 
   public void enable() => enabled = true;
