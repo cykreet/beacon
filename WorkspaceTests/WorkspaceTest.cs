@@ -1,5 +1,3 @@
-using System.IO.Compression;
-
 namespace Beacon.WorkspaceTests;
 
 [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
@@ -12,7 +10,7 @@ class TestDescriptionAttribute(string description) : Attribute {
   public string description { get; } = description;
 }
 
-class TestContext {
+struct TestContext {
   public required ZipReader zipArchive { get; set; }
 }
 

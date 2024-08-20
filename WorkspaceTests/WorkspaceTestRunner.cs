@@ -4,10 +4,10 @@ namespace Beacon.WorkspaceTests;
 
 class TestNotFoundException(string name) : Exception($"Test {name} not found.") { }
 
-class TestResult {
-  public string? name { get; set; } = "Unknown";
-  public string? description { get; set; } = "No description provided.";
-  public bool passed { get; set; }
+readonly struct TestResult(string name, string description, bool passed) {
+  public readonly string name = name;
+  public readonly string description = description;
+  public readonly bool passed = passed;
 }
 
 class WorkspaceTestRunner {
@@ -40,23 +40,22 @@ class WorkspaceTestRunner {
     throw new TestNotFoundException(typeof(Type).Name);
   }
 
-  public void runTests(TestContext context) {
+  public void runTests(ZipReader zipArchive) {
+    TestContext context = new TestContext {
+      zipArchive = zipArchive
+    };
+
     foreach (WorkspaceTest test in tests) {
       if (!test.enabled) continue;
-      Thread thread = new Thread(() => {
-        Console.WriteLine($"Running test {test.GetType().Name} in thread {Environment.CurrentManagedThreadId}");
+
+      ThreadPool.QueueUserWorkItem((_) => {
+        Sentry.debug($"Running test {test.GetType().Name} in thread {Environment.CurrentManagedThreadId}");
         Type testType = test.GetType();
         string? testName = testType.GetCustomAttribute<TestNameAttribute>()?.name;
         string? testDescription = testType.GetCustomAttribute<TestDescriptionAttribute>()?.description;
         bool passed = test.validate(context);
-        this.onTestComplete(new TestResult {
-          name = testName,
-          description = testDescription,
-          passed = passed
-        });
+        this.onTestComplete(new TestResult(testName ?? "Unknown", testDescription ?? "No description provided.", passed));
       });
-
-      thread.Start();
     };
   }
 

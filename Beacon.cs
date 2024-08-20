@@ -15,21 +15,27 @@ using Beacon.WorkspaceTests;
 
 namespace Beacon {
   class Program {
-    static void Main(string[] args) {
-      // dotnet run ./test.zip
-      // todo: could optionally include a "sanitise" flag to remove unwanted files
-      Console.WriteLine($"passed args: {string.Join(", ", args)}");
+    static readonly ManualResetEvent quitEvent = new ManualResetEvent(false);
 
-      ZipReader zipReader = new ZipReader(args[0]);
-      TestContext context = new TestContext {
-        zipArchive = zipReader
+    static void Main(string[] args) {
+      Console.CancelKeyPress += (sender, eventArgs) => {
+        Sentry.warn("\n\nExiting...");
+        eventArgs.Cancel = true;
+        quitEvent.Set();
       };
 
+      // dotnet run ./test.zip
+      // todo: could optionally include a "sanitise" flag to remove unwanted files
+      Sentry.debug($"passed args: {string.Join(", ", args)}");
+
+      ZipReader zipReader = new ZipReader(args[0]);
       WorkspaceTestRunner testRunner = new WorkspaceTestRunner();
       testRunner.enableTest<ExtensionWorkspaceTest>();
       testRunner.enableTest<EncryptionWorkspaceTest>();
       testRunner.testComplete += onTestComplete;
-      testRunner.runTests(context);
+      testRunner.runTests(zipReader);
+
+      quitEvent.WaitOne();
 
       // steps
       // prompt user to upload file
@@ -49,7 +55,7 @@ namespace Beacon {
 
     static void onTestComplete(object? sender, TestResult result) {
       // colours: https://stackoverflow.com/a/74807043
-      Console.WriteLine($"{result.name} Test completed: \x1b[1m{(result.passed ? "\x1b[92mPASSED" : "\x1b[91mFAILED")}\x1b[22m\x1b[39m");
+      Sentry.info($"{result.name} Test completed: \x1b[1m{(result.passed ? "\x1b[92mPASSED" : "\x1b[91mFAILED")}\x1b[22m\x1b[39m");
     }
   }
 }
