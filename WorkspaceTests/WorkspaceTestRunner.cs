@@ -13,7 +13,7 @@ readonly struct TestResult(string name, string description, bool passed) {
 class WorkspaceTestRunner {
   public event EventHandler<TestResult>? testComplete;
   private readonly WorkspaceTest[] tests = [
-    // new SizeWorkspaceTest(),
+    new SizeWorkspaceTest(),
     new ExtensionWorkspaceTest(),
     new EncryptionWorkspaceTest(),
     // new CsharpWorkspaceTest(),
