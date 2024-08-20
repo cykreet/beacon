@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
 
@@ -23,7 +24,7 @@ internal class WorkspaceTestRunner {
   ];
 
   public void enableTest<Type>() where Type : WorkspaceTest {
-    foreach (WorkspaceTest test in tests) {
+    foreach (var test in tests) {
       if (test.GetType() != typeof(Type)) continue;
       test.enable();
       return;
@@ -33,7 +34,7 @@ internal class WorkspaceTestRunner {
   }
 
   public void disableTest<Type>() where Type : WorkspaceTest {
-    foreach (WorkspaceTest test in tests) {
+    foreach (var test in tests) {
       if (test.GetType() != typeof(Type)) continue;
       test.disable();
       return;
@@ -43,7 +44,7 @@ internal class WorkspaceTestRunner {
   }
 
   public void runTests(ZipReader zipArchive) {
-    TestContext context = new TestContext {
+    var context = new TestContext {
       zipArchive = zipArchive
     };
 
@@ -52,11 +53,11 @@ internal class WorkspaceTestRunner {
 
       ThreadPool.QueueUserWorkItem((_) => {
         Sentry.debug($"Running test {test.GetType().Name} in thread {Environment.CurrentManagedThreadId}");
-        Type testType = test.GetType();
-        string? testName = testType.GetCustomAttribute<TestNameAttribute>()?.name;
-        string? testDescription = testType.GetCustomAttribute<TestDescriptionAttribute>()?.description;
-        bool passed = test.validate(context);
-        this.onTestComplete(new TestResult(testName ?? "Unknown", testDescription ?? "No description provided.", passed));
+        var testType = test.GetType();
+        var testName = testType.GetCustomAttribute<TestNameAttribute>()?.name;
+        var testDescription = testType.GetCustomAttribute<TestDescriptionAttribute>()?.description;
+        var result = test.validateAndWarn(context);
+        this.onTestComplete(new TestResult(testName ?? "Unknown", testDescription ?? "No description provided.", result.passed));
       });
     };
   }

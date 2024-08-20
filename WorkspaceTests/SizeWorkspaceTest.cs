@@ -14,7 +14,7 @@ namespace WorkspaceTests;
 internal class SizeWorkspaceTest : WorkspaceTest {
   private const long maxLeng = 64 * 1024 * 1024;
 
-  public override bool validate(TestContext context) {
+  protected override bool validate(TestContext context) {
     return context.zipArchive.entries.All((entry) => entry.Length < maxLeng);
   }
 }

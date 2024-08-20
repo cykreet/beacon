@@ -9,7 +9,7 @@ namespace WorkspaceTests;
 internal class ExtensionWorkspaceTest : WorkspaceTest {
   private readonly string[] allowedExtensions = [".cs", ".js", ".html", ".css", ".json", ".xml", ".txt", ".csproj", ".sln", ".gitignore"];
 
-  public override bool validate(TestContext context) {
+  protected override bool validate(TestContext context) {
     return context.zipArchive.entries.All((entry) => allowedExtensions.Contains(Path.GetExtension(entry.FullName)));
   }
 }
