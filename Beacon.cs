@@ -11,32 +11,19 @@
   6. (done) Custom and built-in exceptions
   7. Security measures
 */
+
+using System;
+using System.Windows.Forms;
 using Beacon.WorkspaceTests;
 
 namespace Beacon {
   class Program {
-    static readonly ManualResetEvent quitEvent = new ManualResetEvent(false);
-
+    [STAThread]
     static void Main(string[] args) {
-      Console.CancelKeyPress += (sender, eventArgs) => {
-        Sentry.warn("\n\nExiting...");
-        eventArgs.Cancel = true;
-        quitEvent.Set();
-      };
-
-      // dotnet run ./test.zip
-      // todo: could optionally include a "sanitise" flag to remove unwanted files
-      Sentry.debug($"passed args: {string.Join(", ", args)}");
-
-      ZipReader zipReader = new ZipReader(args[0]);
-      WorkspaceTestRunner testRunner = new WorkspaceTestRunner();
-      testRunner.enableTest<ExtensionWorkspaceTest>();
-      testRunner.enableTest<EncryptionWorkspaceTest>();
-      testRunner.testComplete += onTestComplete;
-      testRunner.runTests(zipReader);
-
-      quitEvent.WaitOne();
-
+      Application.EnableVisualStyles();
+      Application.SetCompatibleTextRenderingDefault(false);
+      Application.Run();
+      
       // steps
       // prompt user to upload file
       // check if file is a zip file
