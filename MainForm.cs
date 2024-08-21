@@ -17,4 +17,12 @@ public partial class MainForm : Form {
 
   private void MainForm_Load(object sender, EventArgs e) {
   }
+
+  private void label1_Click_1(object sender, EventArgs e) {
+    throw new System.NotImplementedException();
+  }
+
+  private void label1_Click_2(object sender, EventArgs e) {
+    throw new System.NotImplementedException();
+  }
 }
