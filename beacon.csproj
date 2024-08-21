@@ -10,6 +10,7 @@
     <AssemblyName>beacon</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateProgramFile>false</GenerateProgramFile>
     <Deterministic>true</Deterministic>
     <LangVersion>latestmajor</LangVersion>
     <Nullable>enable</Nullable>
@@ -79,6 +80,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Content Include="test.zip">
+      <Link>test.zip</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config"/>
