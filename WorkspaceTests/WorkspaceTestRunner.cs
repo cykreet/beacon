@@ -7,10 +7,11 @@ namespace WorkspaceTests;
 
 internal class TestNotFoundException(string name) : Exception($"Test {name} not found.") { }
 
-internal readonly struct TestResult(string name, string description, bool passed) {
+internal readonly struct TestResult(string name, string description, bool passed, IReadOnlyList<string> warnings) {
   public readonly string name = name;
   public readonly string description = description;
   public readonly bool passed = passed;
+  public readonly IReadOnlyList<string> warnings = warnings;
 }
 
 internal class WorkspaceTestRunner {
@@ -57,7 +58,7 @@ internal class WorkspaceTestRunner {
         var testName = testType.GetCustomAttribute<TestNameAttribute>()?.name;
         var testDescription = testType.GetCustomAttribute<TestDescriptionAttribute>()?.description;
         var result = test.validateAndWarn(context);
-        this.onTestComplete(new TestResult(testName ?? "Unknown", testDescription ?? "No description provided.", result.passed));
+        this.onTestComplete(new TestResult(testName ?? "Unknown", testDescription ?? "No description provided.", result.passed, result.warnings));
       });
     };
   }

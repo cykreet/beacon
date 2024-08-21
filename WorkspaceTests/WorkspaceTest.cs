@@ -4,12 +4,12 @@ using System.Windows.Forms;
 
 namespace WorkspaceTests;
 
-[AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
+[AttributeUsage(AttributeTargets.Class, Inherited = false)]
 internal class TestNameAttribute(string name) : Attribute {
   public string name { get; } = name;
 }
 
-[AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
+[AttributeUsage(AttributeTargets.Class, Inherited = false)]
 internal class TestDescriptionAttribute(string description) : Attribute {
   public string description { get; } = description;
 }
