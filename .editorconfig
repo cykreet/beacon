@@ -24,6 +24,9 @@ dotnet_style_qualification_for_field = true:warning
 dotnet_style_qualification_for_property = true:warning
 dotnet_style_qualification_for_method = true:warning
 
+csharp_style_expression_bodied_methods = true
+csharp_preserve_single_line_blocks = true
+
 # Properties and methods use camel case
 dotnet_naming_rule.properties_and_methods_should_be_camelcase.severity = suggestion
 dotnet_naming_rule.properties_and_methods_should_be_camelcase.symbols = properties_and_methods

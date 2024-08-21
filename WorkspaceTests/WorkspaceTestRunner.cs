@@ -5,7 +5,8 @@ using System.Threading;
 
 namespace WorkspaceTests;
 
-internal class TestNotFoundException(string name) : Exception($"Test {name} not found.") { }
+internal class TestNotFoundException(string name) : Exception($"Test {name} not found.") {
+}
 
 internal readonly struct TestResult(string name, string description, bool passed, IReadOnlyList<string> warnings) {
   public readonly string name = name;
@@ -15,17 +16,18 @@ internal readonly struct TestResult(string name, string description, bool passed
 }
 
 internal class WorkspaceTestRunner {
-  public event EventHandler<TestResult>? testComplete;
   private readonly WorkspaceTest[] tests = [
     new SizeWorkspaceTest(),
     new ExtensionWorkspaceTest(),
-    new EncryptionWorkspaceTest(),
+    new EncryptionWorkspaceTest()
     // new CsharpWorkspaceTest(),
     // new JavaScriptWorkspaceTest(),
   ];
 
+  public event EventHandler<TestResult>? testComplete;
+
   public void enableTest<Type>() where Type : WorkspaceTest {
-    foreach (var test in tests) {
+    foreach (var test in this.tests) {
       if (test.GetType() != typeof(Type)) continue;
       test.enable();
       return;
@@ -35,7 +37,7 @@ internal class WorkspaceTestRunner {
   }
 
   public void disableTest<Type>() where Type : WorkspaceTest {
-    foreach (var test in tests) {
+    foreach (var test in this.tests) {
       if (test.GetType() != typeof(Type)) continue;
       test.disable();
       return;
@@ -49,21 +51,19 @@ internal class WorkspaceTestRunner {
       zipArchive = zipArchive
     };
 
-    foreach (WorkspaceTest test in tests) {
+    foreach (var test in this.tests) {
       if (!test.enabled) continue;
-
-      ThreadPool.QueueUserWorkItem((_) => {
+      ThreadPool.QueueUserWorkItem(_ => {
         Sentry.debug($"Running test {test.GetType().Name} in thread {Environment.CurrentManagedThreadId}");
         var testType = test.GetType();
         var testName = testType.GetCustomAttribute<TestNameAttribute>()?.name;
         var testDescription = testType.GetCustomAttribute<TestDescriptionAttribute>()?.description;
         var result = test.validateAndWarn(context);
-        this.onTestComplete(new TestResult(testName ?? "Unknown", testDescription ?? "No description provided.", result.passed, result.warnings));
+        this.onTestComplete(new TestResult(testName ?? "Unknown", testDescription ?? "No description provided.",
+          result.passed, result.warnings));
       });
-    };
+    }
   }
 
-  private void onTestComplete(TestResult result) {
-    testComplete?.Invoke(this, result);
-  }
+  private void onTestComplete(TestResult result) => testComplete?.Invoke(this, result);
 }

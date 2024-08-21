@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 
 namespace WorkspaceTests;
 
@@ -19,14 +18,14 @@ internal struct TestContext {
 }
 
 internal abstract class WorkspaceTest {
-  public bool enabled { get; private set; } = false;
   private readonly List<string> warnings = [];
+  public bool enabled { get; private set; }
 
-  public void enable() => enabled = true;
-  public void disable() => enabled = false;
+  public void enable() => this.enabled = true;
+  public void disable() => this.enabled = false;
 
   public (bool passed, IReadOnlyList<string> warnings) validateAndWarn(TestContext context) {
-    var passed = validate(context);
+    var passed = this.validate(context);
     return (passed, this.warnings);
   }
 

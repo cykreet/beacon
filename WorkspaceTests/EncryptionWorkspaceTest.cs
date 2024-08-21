@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.IO.Compression;
-
 namespace WorkspaceTests;
 
 [TestName("Encryption")]
