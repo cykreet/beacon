@@ -6,21 +6,21 @@ namespace WorkspaceTests;
 [TestName("Extension")]
 [TestDescription("Validates that the workspace only contains files with allowed extensions.")]
 internal class ExtensionWorkspaceTest : WorkspaceTest {
-  private static readonly string[] commonExtensions = {
+  private static readonly string[] commonExtensions = [
     ".txt", ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".csv", ".xml", ".json", ".zip", ".rar", ".7z",
     ".md", ".yml", ".yaml", ".ini", ".cfg", ".config", ".log", ".gitignore", ".gitattributes"
-  };
+  ];
 
-  private static readonly string[] javasScriptExtensions = {
+  private static readonly string[] javaScriptExtensions = [
     ".js", ".jsx", ".ts", ".tsx", ".mjs", ".cjs", ".html", ".css", ".scss", ".less", ".map", ".lock", ".babelrc",
     ".eslintrc", ".prettierrc", ".npmrc", ".nvmrc", ".yarnrc", ".tsconfig.json", ".package.json", ".package-lock.json"
-  };
+  ];
 
-  private static readonly string[] cSharpExtensions = {
+  private static readonly string[] cSharpExtensions = [
     ".cs", ".csx", ".vb", ".razor", ".cshtml", ".csproj", ".sln", ".resx", ".config", ".settings", ".xaml", ".asax",
     ".ashx", ".aspx", ".master", ".sitemap", ".browserconfig", ".pubxml", ".targets", ".props", ".nuspec", ".nupkg",
     ".snk", ".pfx", ".editorconfig"
-  };
+  ];
 
   protected override bool validate(TestContext context) {
     var illegalExtensions = context.zipArchive.entries.Where(entry => {
