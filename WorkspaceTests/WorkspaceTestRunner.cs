@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
 
-namespace WorkspaceTests;
+namespace Beacon.WorkspaceTests;
 
 internal class TestNotFoundException(string name) : Exception($"Test {name} not found.") {
 }
@@ -26,41 +26,49 @@ internal class WorkspaceTestRunner {
 
   public event EventHandler<TestResult>? testComplete;
 
-  public void enableTest<Type>() where Type : WorkspaceTest {
+  public void enableTest<T>() where T : WorkspaceTest {
     foreach (var test in this.tests) {
-      if (test.GetType() != typeof(Type)) continue;
+      if (test.GetType() != typeof(T)) continue;
       test.enable();
       return;
     }
 
-    throw new TestNotFoundException(typeof(Type).Name);
+    throw new TestNotFoundException(typeof(T).Name);
   }
 
-  public void disableTest<Type>() where Type : WorkspaceTest {
+  public void disableTest<T>() where T : WorkspaceTest {
     foreach (var test in this.tests) {
-      if (test.GetType() != typeof(Type)) continue;
+      if (test.GetType() != typeof(T)) continue;
       test.disable();
       return;
     }
 
-    throw new TestNotFoundException(typeof(Type).Name);
+    throw new TestNotFoundException(typeof(T).Name);
   }
 
   public void runTests(ZipReader zipArchive) {
     var context = new TestContext {
-      zipArchive = zipArchive
+      zipArchive = zipArchive,
+      workspaceType = WorkspaceType.Javascript
     };
 
     foreach (var test in this.tests) {
       if (!test.enabled) continue;
+      var testType = test.GetType();
+      var testName = testType.GetCustomAttribute<TestNameAttribute>()?.name ?? "Unknown";
+      var testDescription = testType.GetCustomAttribute<TestDescriptionAttribute>()?.description ??
+                            "No description provided.";
+
       ThreadPool.QueueUserWorkItem(_ => {
         Sentry.debug($"Running test {test.GetType().Name} in thread {Environment.CurrentManagedThreadId}");
-        var testType = test.GetType();
-        var testName = testType.GetCustomAttribute<TestNameAttribute>()?.name;
-        var testDescription = testType.GetCustomAttribute<TestDescriptionAttribute>()?.description;
-        var result = test.validateAndWarn(context);
-        this.onTestComplete(new TestResult(testName ?? "Unknown", testDescription ?? "No description provided.",
-          result.passed, result.warnings));
+        try {
+          var result = test.validateAndWarn(context);
+          this.onTestComplete(new TestResult(testName, testDescription, result.passed, result.warnings));
+        } catch (Exception exception) {
+          this.onTestComplete(new TestResult(testName, testDescription, false,
+            ["An unexpected error occurred while running the test."]));
+          Sentry.error($"{testName} test failed with an error: {exception.Message}\n{exception.StackTrace}");
+        }
       });
     }
   }

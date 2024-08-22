@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
-namespace WorkspaceTests;
+namespace Beacon.WorkspaceTests;
 
 [AttributeUsage(AttributeTargets.Class, Inherited = false)]
 internal class TestNameAttribute(string name) : Attribute {
@@ -13,8 +15,19 @@ internal class TestDescriptionAttribute(string description) : Attribute {
   public string description { get; } = description;
 }
 
+[AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
+internal class AppliedWorkspaceAttribute(WorkspaceType workspaceType) : Attribute {
+  public WorkspaceType workspaceType { get; } = workspaceType;
+}
+
 internal struct TestContext {
+  public WorkspaceType workspaceType { get; set; }
   public ZipReader zipArchive { get; set; }
+}
+
+internal enum WorkspaceType {
+  Javascript,
+  CSharp
 }
 
 internal abstract class WorkspaceTest {
@@ -31,4 +44,20 @@ internal abstract class WorkspaceTest {
 
   protected abstract bool validate(TestContext context);
   protected void addWarning(string warning) => this.warnings.Add(warning);
+
+  protected IEnumerable<T> getFieldsForWorkspace<T>(TestContext context, params T[] fields) {
+    // would have to look into it more, but reflection doesn't work the same with generic types, i.e. the attributes
+    // aren't attached as expected, so we have to get all fields in the class then filter based on that
+    var classFields = this.GetType().GetFields(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic |
+                                               BindingFlags.Instance);
+    return fields.Where(field => {
+      var fieldInfo = classFields.FirstOrDefault(f => {
+        var value = f.IsStatic ? f.GetValue(null) : f.GetValue(this);
+        return value != null && value.Equals(field);
+      });
+
+      var attribute = fieldInfo.GetCustomAttribute<AppliedWorkspaceAttribute>();
+      return attribute != null && attribute.workspaceType == context.workspaceType;
+    });
+  }
 }

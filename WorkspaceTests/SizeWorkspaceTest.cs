@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace WorkspaceTests;
+namespace Beacon.WorkspaceTests;
 
 [TestName("Size")]
 [TestDescription("Check if any files in the workspace is to large")]

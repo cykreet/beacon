@@ -1,4 +1,4 @@
-namespace WorkspaceTests;
+namespace Beacon.WorkspaceTests;
 
 [TestName("Encryption")]
 [TestDescription("Check if any files in the workspace are encrypted.")]
