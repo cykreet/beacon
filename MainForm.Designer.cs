@@ -33,11 +33,11 @@ partial class MainForm {
       this.label4 = new System.Windows.Forms.Label();
       this.label5 = new System.Windows.Forms.Label();
       this.label6 = new System.Windows.Forms.Label();
-      this.button1 = new System.Windows.Forms.Button();
+      this.submitButton = new System.Windows.Forms.Button();
       this.panel1 = new System.Windows.Forms.Panel();
       this.panel2 = new System.Windows.Forms.Panel();
-      this.label7 = new System.Windows.Forms.Label();
-      this.label1 = new System.Windows.Forms.Label();
+      this.fileLabel = new System.Windows.Forms.Label();
+      this.uploadLabel = new System.Windows.Forms.Label();
       this.panel2.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -100,20 +100,20 @@ partial class MainForm {
       this.label6.Text = "Check if this folder contains malicious files";
       this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
       // 
-      // button1
+      // submitButton
       // 
-      this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(174)))), ((int)(((byte)(96)))));
-      this.button1.FlatAppearance.BorderSize = 0;
-      this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
-      this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
-      this.button1.Font = new System.Drawing.Font("Arial Rounded MT Bold", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.button1.ForeColor = System.Drawing.Color.White;
-      this.button1.Location = new System.Drawing.Point(317, 402);
-      this.button1.Name = "button1";
-      this.button1.Size = new System.Drawing.Size(201, 33);
-      this.button1.TabIndex = 7;
-      this.button1.Text = "Check Folder";
-      this.button1.UseVisualStyleBackColor = false;
+      this.submitButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(174)))), ((int)(((byte)(96)))));
+      this.submitButton.FlatAppearance.BorderSize = 0;
+      this.submitButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+      this.submitButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
+      this.submitButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.submitButton.ForeColor = System.Drawing.Color.White;
+      this.submitButton.Location = new System.Drawing.Point(317, 402);
+      this.submitButton.Name = "submitButton";
+      this.submitButton.Size = new System.Drawing.Size(201, 33);
+      this.submitButton.TabIndex = 7;
+      this.submitButton.Text = "Check Folder";
+      this.submitButton.UseVisualStyleBackColor = false;
       // 
       // panel1
       // 
@@ -128,36 +128,36 @@ partial class MainForm {
       // 
       this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(78)))), ((int)(((byte)(86)))));
       this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-      this.panel2.Controls.Add(this.label7);
-      this.panel2.Controls.Add(this.label1);
+      this.panel2.Controls.Add(this.fileLabel);
+      this.panel2.Controls.Add(this.uploadLabel);
       this.panel2.Location = new System.Drawing.Point(125, 157);
       this.panel2.Name = "panel2";
       this.panel2.Size = new System.Drawing.Size(221, 211);
       this.panel2.TabIndex = 9;
       // 
-      // label7
+      // fileLabel
       // 
-      this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label7.ForeColor = System.Drawing.Color.White;
-      this.label7.Location = new System.Drawing.Point(1, 186);
-      this.label7.Name = "label7";
-      this.label7.Size = new System.Drawing.Size(219, 24);
-      this.label7.TabIndex = 1;
-      this.label7.Text = "Show Uploaded File Name";
-      this.label7.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+      this.fileLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.fileLabel.ForeColor = System.Drawing.Color.White;
+      this.fileLabel.Location = new System.Drawing.Point(1, 186);
+      this.fileLabel.Name = "fileLabel";
+      this.fileLabel.Size = new System.Drawing.Size(219, 24);
+      this.fileLabel.TabIndex = 1;
+      this.fileLabel.Text = "Show Uploaded File Name";
+      this.fileLabel.TextAlign = System.Drawing.ContentAlignment.BottomRight;
       // 
-      // label1
+      // uploadLabel
       // 
-      this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label1.Image = ((System.Drawing.Image)(resources.GetObject("label1.Image")));
-      this.label1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-      this.label1.Location = new System.Drawing.Point(34, 70);
-      this.label1.Name = "label1";
-      this.label1.Size = new System.Drawing.Size(148, 77);
-      this.label1.TabIndex = 0;
-      this.label1.Text = "Upload Folder";
-      this.label1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-      this.label1.Click += new System.EventHandler(this.label1_Click_2);
+      this.uploadLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.uploadLabel.Image = ((System.Drawing.Image)(resources.GetObject("uploadLabel.Image")));
+      this.uploadLabel.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+      this.uploadLabel.Location = new System.Drawing.Point(34, 70);
+      this.uploadLabel.Name = "uploadLabel";
+      this.uploadLabel.Size = new System.Drawing.Size(148, 77);
+      this.uploadLabel.TabIndex = 0;
+      this.uploadLabel.Text = "Upload Folder";
+      this.uploadLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+      this.uploadLabel.Click += new System.EventHandler(this.uploadButtonClick);
       // 
       // MainForm
       // 
@@ -167,7 +167,7 @@ partial class MainForm {
       this.ClientSize = new System.Drawing.Size(878, 499);
       this.Controls.Add(this.panel2);
       this.Controls.Add(this.panel1);
-      this.Controls.Add(this.button1);
+      this.Controls.Add(this.submitButton);
       this.Controls.Add(this.label6);
       this.Controls.Add(this.label5);
       this.Controls.Add(this.label4);
@@ -185,10 +185,10 @@ partial class MainForm {
       this.PerformLayout();
     }
 
-    private System.Windows.Forms.Label label7;
+    private System.Windows.Forms.Label fileLabel;
 
     private System.Windows.Forms.Panel panel2;
-    private System.Windows.Forms.Label label1;
+    private System.Windows.Forms.Label uploadLabel;
 
     #endregion
 
@@ -197,7 +197,7 @@ partial class MainForm {
     private System.Windows.Forms.Label label4;
     private System.Windows.Forms.Label label5;
     private System.Windows.Forms.Label label6;
-    private System.Windows.Forms.Button button1;
+    private System.Windows.Forms.Button submitButton;
     private System.Windows.Forms.Panel panel1;
 
 }
