@@ -26,24 +26,30 @@ internal class WorkspaceTestRunner {
 
   public event EventHandler<TestResult>? testComplete;
 
-  public void enableTest<T>() where T : WorkspaceTest {
+  public void enableTest(Type testType) {
+    if (!typeof(WorkspaceTest).IsAssignableFrom(testType))
+      throw new ArgumentException($"Type '{testType.Name}' is not a subclass of WorkspaceTest");
+
     foreach (var test in this.tests) {
-      if (test.GetType() != typeof(T)) continue;
+      if (test.GetType() != testType) continue;
       test.enable();
       return;
     }
 
-    throw new TestNotFoundException(typeof(T).Name);
+    throw new TestNotFoundException(testType.Name);
   }
 
-  public void disableTest<T>() where T : WorkspaceTest {
+  public void disableTest(Type testType) {
+    if (!typeof(WorkspaceTest).IsAssignableFrom(testType))
+      throw new ArgumentException($"Type '{testType.Name}' is not a subclass of WorkspaceTest");
+
     foreach (var test in this.tests) {
-      if (test.GetType() != typeof(T)) continue;
+      if (test.GetType() != testType) continue;
       test.disable();
       return;
     }
 
-    throw new TestNotFoundException(typeof(T).Name);
+    throw new TestNotFoundException(testType.Name);
   }
 
   public void runTests(ZipReader zipArchive) {

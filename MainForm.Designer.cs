@@ -29,10 +29,6 @@ partial class MainForm {
     {
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
       this.label2 = new System.Windows.Forms.Label();
-      this.label3 = new System.Windows.Forms.Label();
-      this.label4 = new System.Windows.Forms.Label();
-      this.label5 = new System.Windows.Forms.Label();
-      this.label6 = new System.Windows.Forms.Label();
       this.submitButton = new System.Windows.Forms.Button();
       this.panel1 = new System.Windows.Forms.Panel();
       this.panel2 = new System.Windows.Forms.Panel();
@@ -51,54 +47,6 @@ partial class MainForm {
       this.label2.Size = new System.Drawing.Size(194, 55);
       this.label2.TabIndex = 2;
       this.label2.Text = "Beacon";
-      // 
-      // label3
-      // 
-      this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(121)))), ((int)(((byte)(131)))));
-      this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label3.Location = new System.Drawing.Point(409, 157);
-      this.label3.Name = "label3";
-      this.label3.Padding = new System.Windows.Forms.Padding(5);
-      this.label3.Size = new System.Drawing.Size(320, 40);
-      this.label3.TabIndex = 3;
-      this.label3.Text = "Check if this is a ZIP folder";
-      this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-      // 
-      // label4
-      // 
-      this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(121)))), ((int)(((byte)(131)))));
-      this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label4.Location = new System.Drawing.Point(409, 216);
-      this.label4.Name = "label4";
-      this.label4.Padding = new System.Windows.Forms.Padding(5);
-      this.label4.Size = new System.Drawing.Size(320, 40);
-      this.label4.TabIndex = 4;
-      this.label4.Text = "Check the size for this ZIP folder";
-      this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-      // 
-      // label5
-      // 
-      this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(121)))), ((int)(((byte)(131)))));
-      this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label5.Location = new System.Drawing.Point(409, 273);
-      this.label5.Name = "label5";
-      this.label5.Padding = new System.Windows.Forms.Padding(5);
-      this.label5.Size = new System.Drawing.Size(320, 40);
-      this.label5.TabIndex = 5;
-      this.label5.Text = "Check if this folder is password protected";
-      this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-      // 
-      // label6
-      // 
-      this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(121)))), ((int)(((byte)(131)))));
-      this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label6.Location = new System.Drawing.Point(409, 329);
-      this.label6.Name = "label6";
-      this.label6.Padding = new System.Windows.Forms.Padding(5);
-      this.label6.Size = new System.Drawing.Size(320, 40);
-      this.label6.TabIndex = 6;
-      this.label6.Text = "Check if this folder contains malicious files";
-      this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
       // 
       // submitButton
       // 
@@ -168,10 +116,6 @@ partial class MainForm {
       this.Controls.Add(this.panel2);
       this.Controls.Add(this.panel1);
       this.Controls.Add(this.submitButton);
-      this.Controls.Add(this.label6);
-      this.Controls.Add(this.label5);
-      this.Controls.Add(this.label4);
-      this.Controls.Add(this.label3);
       this.Controls.Add(this.label2);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
       this.MaximizeBox = false;
@@ -193,10 +137,6 @@ partial class MainForm {
     #endregion
 
     private System.Windows.Forms.Label label2;
-    private System.Windows.Forms.Label label3;
-    private System.Windows.Forms.Label label4;
-    private System.Windows.Forms.Label label5;
-    private System.Windows.Forms.Label label6;
     private System.Windows.Forms.Button submitButton;
     private System.Windows.Forms.Panel panel1;
 
