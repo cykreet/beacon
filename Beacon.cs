@@ -14,17 +14,20 @@
 
 using System;
 using System.Windows.Forms;
-using WorkspaceTests;
+using Beacon.WorkspaceTests;
 
 namespace Beacon;
 
 internal class Program {
+  private static WorkspaceTestRunner? testRunner;
+
   [STAThread]
-  static void Main(string[] args) {
+  private static void Main(string[] args) {
+    testRunner = new WorkspaceTestRunner();
     Application.EnableVisualStyles();
     Application.SetCompatibleTextRenderingDefault(false);
     Application.Run(new MainForm());
-    
+
     // steps
     // prompt user to upload file
     // check if file is a zip file
@@ -41,8 +44,5 @@ internal class Program {
     // stop unzip when prompted size is reached
   }
 
-  private static void onTestComplete(object? sender, TestResult result) {
-    // colours: https://stackoverflow.com/a/74807043
-    Sentry.info($"{result.name} Test completed: \x1b[1m{(result.passed ? "\x1b[92mPASSED" : "\x1b[91mFAILED")}\x1b[22m\x1b[39m");
-  }
+  public static WorkspaceTestRunner? getTestRunner() => testRunner;
 }
