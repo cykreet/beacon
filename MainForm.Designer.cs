@@ -27,14 +27,13 @@ partial class MainForm {
     /// </summary>
     private void InitializeComponent()
     {
-      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
       this.label2 = new System.Windows.Forms.Label();
       this.submitButton = new System.Windows.Forms.Button();
-      this.panel1 = new System.Windows.Forms.Panel();
-      this.panel2 = new System.Windows.Forms.Panel();
-      this.fileLabel = new System.Windows.Forms.Label();
+      this.uploadPanel = new System.Windows.Forms.Panel();
       this.uploadLabel = new System.Windows.Forms.Label();
-      this.panel2.SuspendLayout();
+      this.fileLabel = new System.Windows.Forms.Label();
+      this.testsContainer = new System.Windows.Forms.FlowLayoutPanel();
+      this.uploadPanel.SuspendLayout();
       this.SuspendLayout();
       // 
       // label2
@@ -51,93 +50,96 @@ partial class MainForm {
       // submitButton
       // 
       this.submitButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(174)))), ((int)(((byte)(96)))));
+      this.submitButton.Enabled = false;
       this.submitButton.FlatAppearance.BorderSize = 0;
       this.submitButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
       this.submitButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
       this.submitButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.submitButton.ForeColor = System.Drawing.Color.White;
-      this.submitButton.Location = new System.Drawing.Point(317, 402);
+      this.submitButton.Location = new System.Drawing.Point(28, 454);
       this.submitButton.Name = "submitButton";
-      this.submitButton.Size = new System.Drawing.Size(201, 33);
+      this.submitButton.Size = new System.Drawing.Size(265, 33);
       this.submitButton.TabIndex = 7;
       this.submitButton.Text = "Check Folder";
       this.submitButton.UseVisualStyleBackColor = false;
       // 
-      // panel1
+      // uploadPanel
       // 
-      this.panel1.BackColor = System.Drawing.Color.Gray;
-      this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-      this.panel1.Location = new System.Drawing.Point(97, 113);
-      this.panel1.Name = "panel1";
-      this.panel1.Size = new System.Drawing.Size(666, 2);
-      this.panel1.TabIndex = 8;
+      this.uploadPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(78)))), ((int)(((byte)(86)))));
+      this.uploadPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.uploadPanel.Controls.Add(this.uploadLabel);
+      this.uploadPanel.Controls.Add(this.fileLabel);
+      this.uploadPanel.Location = new System.Drawing.Point(28, 71);
+      this.uploadPanel.Name = "uploadPanel";
+      this.uploadPanel.Size = new System.Drawing.Size(265, 27);
+      this.uploadPanel.TabIndex = 9;
       // 
-      // panel2
+      // uploadLabel
       // 
-      this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(78)))), ((int)(((byte)(86)))));
-      this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-      this.panel2.Controls.Add(this.fileLabel);
-      this.panel2.Controls.Add(this.uploadLabel);
-      this.panel2.Location = new System.Drawing.Point(125, 157);
-      this.panel2.Name = "panel2";
-      this.panel2.Size = new System.Drawing.Size(221, 211);
-      this.panel2.TabIndex = 9;
+      this.uploadLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.uploadLabel.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+      this.uploadLabel.Location = new System.Drawing.Point(-2, -1);
+      this.uploadLabel.Name = "uploadLabel";
+      this.uploadLabel.Size = new System.Drawing.Size(36, 34);
+      this.uploadLabel.TabIndex = 0;
+      this.uploadLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+      this.uploadLabel.Click += new System.EventHandler(this.onUploadButtonClick);
       // 
       // fileLabel
       // 
       this.fileLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.fileLabel.ForeColor = System.Drawing.Color.White;
-      this.fileLabel.Location = new System.Drawing.Point(1, 186);
+      this.fileLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+      this.fileLabel.Location = new System.Drawing.Point(40, 0);
       this.fileLabel.Name = "fileLabel";
-      this.fileLabel.Size = new System.Drawing.Size(219, 24);
+      this.fileLabel.Size = new System.Drawing.Size(224, 24);
       this.fileLabel.TabIndex = 1;
-      this.fileLabel.Text = "Show Uploaded File Name";
-      this.fileLabel.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+      this.fileLabel.Text = "Upload zip file";
+      this.fileLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
       // 
-      // uploadLabel
+      // testsContainer
       // 
-      this.uploadLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.uploadLabel.Image = ((System.Drawing.Image)(resources.GetObject("uploadLabel.Image")));
-      this.uploadLabel.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-      this.uploadLabel.Location = new System.Drawing.Point(34, 70);
-      this.uploadLabel.Name = "uploadLabel";
-      this.uploadLabel.Size = new System.Drawing.Size(148, 77);
-      this.uploadLabel.TabIndex = 0;
-      this.uploadLabel.Text = "Upload Folder";
-      this.uploadLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-      this.uploadLabel.Click += new System.EventHandler(this.uploadButtonClick);
+      this.testsContainer.AutoScroll = true;
+      this.testsContainer.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+      this.testsContainer.Location = new System.Drawing.Point(28, 115);
+      this.testsContainer.Margin = new System.Windows.Forms.Padding(0);
+      this.testsContainer.Name = "testsContainer";
+      this.testsContainer.Size = new System.Drawing.Size(264, 311);
+      this.testsContainer.TabIndex = 10;
+      this.testsContainer.WrapContents = false;
       // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(29)))), ((int)(((byte)(43)))));
-      this.ClientSize = new System.Drawing.Size(878, 499);
-      this.Controls.Add(this.panel2);
-      this.Controls.Add(this.panel1);
+      this.ClientSize = new System.Drawing.Size(323, 499);
+      this.Controls.Add(this.testsContainer);
+      this.Controls.Add(this.uploadPanel);
       this.Controls.Add(this.submitButton);
       this.Controls.Add(this.label2);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+      this.Location = new System.Drawing.Point(15, 15);
       this.MaximizeBox = false;
       this.Name = "MainForm";
       this.ShowIcon = false;
       this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
       this.Text = "Beacon";
       this.Load += new System.EventHandler(this.MainForm_Load);
-      this.panel2.ResumeLayout(false);
+      this.uploadPanel.ResumeLayout(false);
       this.ResumeLayout(false);
       this.PerformLayout();
     }
 
+    private System.Windows.Forms.FlowLayoutPanel testsContainer;
+
     private System.Windows.Forms.Label fileLabel;
 
-    private System.Windows.Forms.Panel panel2;
+    private System.Windows.Forms.Panel uploadPanel;
     private System.Windows.Forms.Label uploadLabel;
 
     #endregion
 
     private System.Windows.Forms.Label label2;
     private System.Windows.Forms.Button submitButton;
-    private System.Windows.Forms.Panel panel1;
-
 }
