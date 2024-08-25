@@ -1,6 +1,6 @@
 namespace Beacon.Plugins;
 
-public interface Plugin {
+public interface BeaconPlugin {
   string pluginName { get; set; }
-  bool validate();
+  void onPluginLoaded();
 }
