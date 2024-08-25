@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
@@ -7,13 +8,15 @@ using Beacon.WorkspaceTests;
 namespace Beacon;
 
 public partial class MainForm : Form {
+  private readonly string fontFamily = "Jetbrains Mono";
+
   public MainForm() {
     this.FormBorderStyle = FormBorderStyle.FixedSingle;
     this.InitializeComponent();
     this.createWorkspaceTestList();
 
-    this.submitButton.Click += onSubmitButtonClick;
     var testRunner = Program.getTestRunner();
+    this.fileLabel.Click += this.onUploadPanelClick;
     testRunner!.testComplete += onTestComplete;
   }
 
@@ -27,19 +30,22 @@ public partial class MainForm : Form {
       // todo: all broken, container should contain the checkbox, name, description
       // then also a kind of notification icon for test warnings and test completion/idle
       // icons -- notification icon should display warnings on hover
-      var container = new ContainerControl();
-      // container.BackColor = ColorTranslator.FromHtml("#454f77");
-      container.Margin = new Padding(0, 0, 0, 20);
+      var container = new FlowLayoutPanel();
+      container.BackColor = ColorTranslator.FromHtml("#0f111a");
+      container.Margin = new Padding(0, 0, 0, 10);
       container.Padding = new Padding(5);
       container.AutoSize = true;
-      container.Height = 2;
+      container.BorderStyle = BorderStyle.FixedSingle;
+      container.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+      container.Dock = DockStyle.Top;
+      container.Paint += onContainerPaint;
 
+      var headerContainer = new FlowLayoutPanel();
       var checkbox = new CheckBox();
       checkbox.AutoSize = true;
       checkbox.Tag = testType;
-      // checkbox.Margin = new Padding(0, 0, 5, 0);
-      checkbox.Dock = DockStyle.Left;
-      // checkbox.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+      checkbox.Dock = DockStyle.Fill;
+      checkbox.Cursor = Cursors.Hand;
       checkbox.CheckedChanged += onTestChecked;
 
       var testName = testType.GetCustomAttribute<TestNameAttribute>()?.name;
@@ -47,29 +53,45 @@ public partial class MainForm : Form {
 
       var nameLabel = new Label();
       nameLabel.AutoSize = true;
-      nameLabel.Dock = DockStyle.Left;
-      // nameLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+      nameLabel.ForeColor = Color.White;
+      nameLabel.Font = new Font(this.fontFamily, 12f, FontStyle.Bold);
+      nameLabel.Dock = DockStyle.Fill;
       nameLabel.Text = testName + " Test";
+
+      headerContainer.Controls.Add(checkbox);
+      headerContainer.Controls.Add(nameLabel);
+      headerContainer.MaximumSize = new Size(headerContainer.Width, nameLabel.Height);
 
       var descriptionLabel = new Label();
       descriptionLabel.AutoSize = true;
-      checkbox.Dock = DockStyle.Bottom;
+      descriptionLabel.Dock = DockStyle.Bottom;
+      descriptionLabel.ForeColor = Color.DarkGray;
+      descriptionLabel.Font = new Font(this.fontFamily, 9f);
       descriptionLabel.Text = testDescription;
 
-      container.Controls.Add(checkbox);
-      container.Controls.Add(nameLabel);
+      container.Controls.Add(headerContainer);
       container.Controls.Add(descriptionLabel);
-      this.testsContainer.Controls.Add(container);
+
+      // var temp = this.testsContainer.RowStyles[this.testsContainer.RowCount - 1];
+      this.testsContainer.RowCount++;
+      this.testsContainer.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+      this.testsContainer.Controls.Add(container, 1, this.testsContainer.RowCount - 1);
     }
   }
 
-  private void onUploadButtonClick(object sender, EventArgs eventArgs) {
+  private static void onContainerPaint(object sender, PaintEventArgs eventArgs) {
+    if (sender is not FlowLayoutPanel container) return;
+    ControlPaint.DrawBorder(eventArgs.Graphics, container.ClientRectangle, Color.RoyalBlue, ButtonBorderStyle.Solid);
+  }
+
+  private void onUploadPanelClick(object sender, EventArgs eventArgs) {
     var dialog = new OpenFileDialog();
+    dialog.Title = "Select a file to scan";
     dialog.Filter = "Zip files (*.zip)|*.zip";
     if (dialog.ShowDialog() != DialogResult.OK) return;
-    var zipReader = new ZipReader(dialog.FileName);
     this.fileLabel.Text = dialog.FileName;
 
+    var zipReader = new ZipReader(dialog.FileName);
     Program.getTestRunner()?.setWorkspace(zipReader);
     this.submitButton.Enabled = true;
   }

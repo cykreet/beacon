@@ -27,13 +27,15 @@ partial class MainForm {
     /// </summary>
     private void InitializeComponent()
     {
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
       this.label2 = new System.Windows.Forms.Label();
       this.submitButton = new System.Windows.Forms.Button();
       this.uploadPanel = new System.Windows.Forms.Panel();
-      this.uploadLabel = new System.Windows.Forms.Label();
       this.fileLabel = new System.Windows.Forms.Label();
-      this.testsContainer = new System.Windows.Forms.FlowLayoutPanel();
+      this.logo = new System.Windows.Forms.PictureBox();
+      this.testsContainer = new System.Windows.Forms.TableLayoutPanel();
       this.uploadPanel.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
       this.SuspendLayout();
       // 
       // label2
@@ -50,13 +52,14 @@ partial class MainForm {
       // submitButton
       // 
       this.submitButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(174)))), ((int)(((byte)(96)))));
+      this.submitButton.Cursor = System.Windows.Forms.Cursors.Hand;
       this.submitButton.Enabled = false;
       this.submitButton.FlatAppearance.BorderSize = 0;
       this.submitButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
       this.submitButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
-      this.submitButton.Font = new System.Drawing.Font("Arial Rounded MT Bold", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.submitButton.Font = new System.Drawing.Font("JetBrains Mono", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.submitButton.ForeColor = System.Drawing.Color.White;
-      this.submitButton.Location = new System.Drawing.Point(28, 454);
+      this.submitButton.Location = new System.Drawing.Point(28, 549);
       this.submitButton.Name = "submitButton";
       this.submitButton.Size = new System.Drawing.Size(265, 33);
       this.submitButton.TabIndex = 7;
@@ -67,54 +70,58 @@ partial class MainForm {
       // 
       this.uploadPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(78)))), ((int)(((byte)(86)))));
       this.uploadPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-      this.uploadPanel.Controls.Add(this.uploadLabel);
       this.uploadPanel.Controls.Add(this.fileLabel);
       this.uploadPanel.Location = new System.Drawing.Point(28, 71);
       this.uploadPanel.Name = "uploadPanel";
       this.uploadPanel.Size = new System.Drawing.Size(265, 27);
       this.uploadPanel.TabIndex = 9;
       // 
-      // uploadLabel
-      // 
-      this.uploadLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.uploadLabel.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-      this.uploadLabel.Location = new System.Drawing.Point(-2, -1);
-      this.uploadLabel.Name = "uploadLabel";
-      this.uploadLabel.Size = new System.Drawing.Size(36, 34);
-      this.uploadLabel.TabIndex = 0;
-      this.uploadLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-      this.uploadLabel.Click += new System.EventHandler(this.onUploadButtonClick);
-      // 
       // fileLabel
       // 
-      this.fileLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.fileLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+      this.fileLabel.AutoEllipsis = true;
+      this.fileLabel.Font = new System.Drawing.Font("JetBrains Mono", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.fileLabel.ForeColor = System.Drawing.Color.White;
       this.fileLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-      this.fileLabel.Location = new System.Drawing.Point(40, 0);
+      this.fileLabel.Location = new System.Drawing.Point(3, 0);
       this.fileLabel.Name = "fileLabel";
-      this.fileLabel.Size = new System.Drawing.Size(224, 24);
+      this.fileLabel.Size = new System.Drawing.Size(257, 25);
       this.fileLabel.TabIndex = 1;
-      this.fileLabel.Text = "Upload zip file";
-      this.fileLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+      this.fileLabel.Text = "Upload File";
+      this.fileLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+      // 
+      // logo
+      // 
+      this.logo.Image = ((System.Drawing.Image)(resources.GetObject("logo.Image")));
+      this.logo.InitialImage = ((System.Drawing.Image)(resources.GetObject("logo.InitialImage")));
+      this.logo.Location = new System.Drawing.Point(30, 16);
+      this.logo.Name = "logo";
+      this.logo.Size = new System.Drawing.Size(261, 38);
+      this.logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+      this.logo.TabIndex = 11;
+      this.logo.TabStop = false;
       // 
       // testsContainer
       // 
+      this.testsContainer.Anchor = System.Windows.Forms.AnchorStyles.Top;
       this.testsContainer.AutoScroll = true;
-      this.testsContainer.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-      this.testsContainer.Location = new System.Drawing.Point(28, 115);
-      this.testsContainer.Margin = new System.Windows.Forms.Padding(0);
+      this.testsContainer.ColumnCount = 1;
+      this.testsContainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+      this.testsContainer.Location = new System.Drawing.Point(27, 114);
       this.testsContainer.Name = "testsContainer";
-      this.testsContainer.Size = new System.Drawing.Size(264, 311);
-      this.testsContainer.TabIndex = 10;
-      this.testsContainer.WrapContents = false;
+      this.testsContainer.RowCount = 1;
+      this.testsContainer.RowStyles.Add(new System.Windows.Forms.RowStyle());
+      this.testsContainer.Size = new System.Drawing.Size(265, 412);
+      this.testsContainer.TabIndex = 12;
       // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(29)))), ((int)(((byte)(43)))));
-      this.ClientSize = new System.Drawing.Size(323, 499);
+      this.ClientSize = new System.Drawing.Size(321, 607);
       this.Controls.Add(this.testsContainer);
+      this.Controls.Add(this.logo);
       this.Controls.Add(this.uploadPanel);
       this.Controls.Add(this.submitButton);
       this.Controls.Add(this.label2);
@@ -127,16 +134,18 @@ partial class MainForm {
       this.Text = "Beacon";
       this.Load += new System.EventHandler(this.MainForm_Load);
       this.uploadPanel.ResumeLayout(false);
+      ((System.ComponentModel.ISupportInitialize)(this.logo)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
     }
 
-    private System.Windows.Forms.FlowLayoutPanel testsContainer;
+    private System.Windows.Forms.TableLayoutPanel testsContainer;
+
+    private System.Windows.Forms.PictureBox logo;
 
     private System.Windows.Forms.Label fileLabel;
 
     private System.Windows.Forms.Panel uploadPanel;
-    private System.Windows.Forms.Label uploadLabel;
 
     #endregion
 

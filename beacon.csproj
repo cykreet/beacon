@@ -53,6 +53,7 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Beacon.cs"/>
+        <Compile Include="Plugins\Plugin.cs"/>
         <Compile Include="WorkspaceTests/*.cs"/>
         <Compile Include="Sentry.cs"/>
         <Compile Include="ZipReader.cs"/>
@@ -63,7 +64,7 @@
             <DependentUpon>MainForm.cs</DependentUpon>
         </Compile>
         <Compile Include="Properties\AssemblyInfo.cs"/>
-        <EmbeddedResource Include="MainForm.resx" />
+        <EmbeddedResource Include="MainForm.resx"/>
         <None Include="Properties\Settings.settings">
             <Generator>SettingsSingleFileGenerator</Generator>
             <LastGenOutput>Settings.Designer.cs</LastGenOutput>
