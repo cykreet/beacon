@@ -4,7 +4,7 @@ using System.IO.Compression;
   Middleman class for reading and managing opened zip file handles
   allowing for thread-safe access to zip file contents.
 */
-internal class ZipReader {
+public class ZipReader {
   public readonly ZipArchiveEntry[] entries;
   public readonly bool isEncrypted;
   private readonly ZipArchive zipArchive;

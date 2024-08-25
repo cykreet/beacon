@@ -1,39 +1,31 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection;
+using System.Linq;
 using System.Threading;
 
 namespace Beacon.WorkspaceTests;
 
-internal class TestNotFoundException(string name) : Exception($"Test {name} not found.") {
+internal class TestNotFoundException(string name) : Exception($"Test {name} is not registered with test runner.") {
 }
 
-internal readonly struct TestResult(string name, string description, bool passed, IReadOnlyList<string> warnings) {
-  public readonly string name = name;
-  public readonly string description = description;
+internal readonly struct TestResult(bool passed, IReadOnlyList<string> warnings) {
   public readonly bool passed = passed;
   public readonly IReadOnlyList<string> warnings = warnings;
 }
 
 internal class WorkspaceTestRunner {
-  private readonly WorkspaceTest[] tests = [
-    new SizeWorkspaceTest(),
-    new ExtensionWorkspaceTest(),
-    new EncryptionWorkspaceTest(),
-    new JavaScriptWorkspaceTest()
-    // new CsharpWorkspaceTest(),
-  ];
-
+  private readonly List<WorkspaceTest> tests = [];
   private ZipReader? workspace;
-
   public event EventHandler<TestResult>? testComplete;
+
+  public void setWorkspace(ZipReader zipReader) => this.workspace = zipReader;
+  public void registerTest(WorkspaceTest workspaceTest) => this.tests.Add(workspaceTest);
 
   public void enableTest(Type testType) {
     if (!typeof(WorkspaceTest).IsAssignableFrom(testType))
       throw new ArgumentException($"Type '{testType.Name}' is not a subclass of WorkspaceTest");
 
-    foreach (var test in this.tests) {
-      if (test.GetType() != testType) continue;
+    foreach (var test in this.tests.Where(test => test.GetType() == testType)) {
       test.enable();
       return;
     }
@@ -45,16 +37,13 @@ internal class WorkspaceTestRunner {
     if (!typeof(WorkspaceTest).IsAssignableFrom(testType))
       throw new ArgumentException($"Type '{testType.Name}' is not a subclass of WorkspaceTest");
 
-    foreach (var test in this.tests) {
-      if (test.GetType() != testType) continue;
+    foreach (var test in this.tests.Where(test => test.GetType() == testType)) {
       test.disable();
       return;
     }
 
     throw new TestNotFoundException(testType.Name);
   }
-
-  public void setWorkspace(ZipReader zipReader) => this.workspace = zipReader;
 
   public void runTests() {
     var context = new TestContext {
@@ -65,23 +54,19 @@ internal class WorkspaceTestRunner {
     foreach (var test in this.tests) {
       if (!test.enabled) continue;
       var testType = test.GetType();
-      var testName = testType.GetCustomAttribute<TestNameAttribute>()?.name ?? "Unknown";
-      var testDescription = testType.GetCustomAttribute<TestDescriptionAttribute>()?.description ??
-                            "No description provided.";
-
       ThreadPool.QueueUserWorkItem(_ => {
         Sentry.debug($"Running test {test.GetType().Name} in thread {Environment.CurrentManagedThreadId}");
         try {
           var result = test.validateAndWarn(context);
-          this.onTestComplete(new TestResult(testName, testDescription, result.passed, result.warnings));
+          this.onTestComplete(testType, new TestResult(result.passed, result.warnings));
         } catch (Exception exception) {
-          this.onTestComplete(new TestResult(testName, testDescription, false,
-            ["An unexpected error occurred while running the test."]));
-          Sentry.error($"{testName} test failed with an error: {exception.Message}\n{exception.StackTrace}");
+          this.onTestComplete(testType,
+            new TestResult(false, ["An unexpected error occurred while running the test."]));
+          Sentry.error($"Test failed with an error: {exception.Message}\n{exception.StackTrace}");
         }
       });
     }
   }
 
-  private void onTestComplete(TestResult result) => testComplete?.Invoke(this, result);
+  private void onTestComplete(object sender, TestResult result) => testComplete?.Invoke(sender, result);
 }

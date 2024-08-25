@@ -20,17 +20,18 @@ internal class AppliedWorkspaceAttribute(WorkspaceType workspaceType) : Attribut
   public WorkspaceType workspaceType { get; } = workspaceType;
 }
 
-internal struct TestContext {
+public struct TestContext {
   public WorkspaceType workspaceType { get; set; }
   public ZipReader zipArchive { get; set; }
 }
 
-internal enum WorkspaceType {
+public enum WorkspaceType {
   Javascript,
   CSharp
 }
 
-internal abstract class WorkspaceTest {
+// todo: somehow add to shared assembly for plugin usage
+public abstract class WorkspaceTest {
   private readonly List<string> warnings = [];
   public bool enabled { get; private set; }
 
