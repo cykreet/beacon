@@ -19,10 +19,12 @@ internal class WorkspaceTestRunner {
   private readonly WorkspaceTest[] tests = [
     new SizeWorkspaceTest(),
     new ExtensionWorkspaceTest(),
-    new EncryptionWorkspaceTest()
+    new EncryptionWorkspaceTest(),
+    new JavaScriptWorkspaceTest()
     // new CsharpWorkspaceTest(),
-    // new JavaScriptWorkspaceTest(),
   ];
+
+  private ZipReader? workspace;
 
   public event EventHandler<TestResult>? testComplete;
 
@@ -52,9 +54,11 @@ internal class WorkspaceTestRunner {
     throw new TestNotFoundException(testType.Name);
   }
 
-  public void runTests(ZipReader zipArchive) {
+  public void setWorkspace(ZipReader zipReader) => this.workspace = zipReader;
+
+  public void runTests() {
     var context = new TestContext {
-      zipArchive = zipArchive,
+      zipArchive = this.workspace!,
       workspaceType = WorkspaceType.Javascript
     };
 
