@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Beacon.WorkspaceTests;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -7,7 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace WorkspaceTests;
+namespace Beacon.WorkspaceTests;
 
 [TestName("JavaScript test")]
 [TestDescription("Check if any files in the workspace contains any malicous files")]
