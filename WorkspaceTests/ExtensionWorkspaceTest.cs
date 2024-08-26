@@ -29,7 +29,8 @@ internal class ExtensionWorkspaceTest : WorkspaceTest {
     var workspaceExtensions = this.getFieldsForWorkspace(context, javaScriptExtensions, cSharpExtensions);
     var allowedExtensions = workspaceExtensions.First().Concat(commonExtensions).Distinct().ToArray();
     var illegalExtensions = context.zipArchive.entries.Where(entry =>
-      this.testEntry(allowedExtensions, entry));
+        this.testEntry(allowedExtensions, entry))
+      .ToList(); // LINQ quirk .toList() forces Where to evaluate all entries, not just when true is returned
 
     return illegalExtensions.Any() == false;
   }
@@ -37,7 +38,9 @@ internal class ExtensionWorkspaceTest : WorkspaceTest {
   private bool testEntry(string[] allowedExtensions, ZipArchiveEntry entry) {
     var extension = Path.GetExtension(entry.FullName);
     if (allowedExtensions.Contains(extension)) return false;
-    this.addWarning($"Entry {entry.FullName} uses illegal extension {extension}.");
+    this.addWarning(
+      $"Entry \"{entry.FullName}\" uses illegal extension \"{(extension.Any() ? extension : "NO EXTENSION")}\"."
+    );
     return true;
   }
 }
