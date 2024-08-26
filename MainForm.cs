@@ -224,19 +224,24 @@ public sealed partial class MainForm : Form {
       testContainer.Tag = containerTag;
 
       if (statusIndicator != null) {
-        switch (containerTag.state) {
-          case ContainerState.Failure:
-            statusIndicator.ForeColor = Color.Crimson;
-            statusIndicator.Text = @"!";
-            break;
-          case ContainerState.Success:
-            statusIndicator.ForeColor = Color.PaleGreen;
-            statusIndicator.Text = @"✓";
-            break;
-          case ContainerState.Default:
-          case ContainerState.Loading:
-          default:
-            throw new ArgumentOutOfRangeException();
+        if (result.warnings.Any()) {
+          statusIndicator.ForeColor = Color.Orange;
+          statusIndicator.Text = @"⚠";
+        } else {
+          switch (containerTag.state) {
+            case ContainerState.Failure:
+              statusIndicator.ForeColor = Color.Red;
+              statusIndicator.Text = @"!";
+              break;
+            case ContainerState.Success:
+              statusIndicator.ForeColor = Color.PaleGreen;
+              statusIndicator.Text = @"✓";
+              break;
+            case ContainerState.Default:
+            case ContainerState.Loading:
+            default:
+              throw new ArgumentOutOfRangeException();
+          }
         }
 
         statusIndicator.Tag = result.warnings.Any() ? string.Join("\n", result.warnings) : null;
