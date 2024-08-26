@@ -20,7 +20,7 @@ public class WarningTooltip : ToolTip {
     using var graphics = eventArgs.AssociatedControl.CreateGraphics();
     // in our draw, we split the tooltip at every new line and manually position them
     // to display an accompanied icon, we have to account for this in our size estimates
-    var toolTipLines = toolTipText.Split('\n');
+    var toolTipLines = toolTipText!.Split('\n');
     var maxWidth = 0;
     var totalHeight = 0;
     const int lineSpacing = 2;

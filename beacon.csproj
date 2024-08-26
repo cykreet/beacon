@@ -15,6 +15,7 @@
         <Deterministic>true</Deterministic>
         <LangVersion>latestmajor</LangVersion>
         <Nullable>enable</Nullable>
+        <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -42,7 +43,6 @@
         <Reference Include="System.Data.DataSetExtensions"/>
         <Reference Include="Microsoft.CSharp"/>
         <Reference Include="System.Data"/>
-        <Reference Include="System.Windows.Interop"/>
         <Reference Include="System.Deployment"/>
         <Reference Include="System.Drawing"/>
         <Reference Include="System.Net.Http"/>
@@ -57,7 +57,7 @@
         <Compile Include="Beacon.cs"/>
         <Compile Include="Controls\WarningTooltip.cs"/>
         <Compile Include="Plugins\PluginLoader.cs"/>
-        <Compile Include="WorkspaceTests/*.cs"/>
+        <Compile Include="WorkspaceTests\*.cs"/>
         <Compile Include="Sentry.cs"/>
         <Compile Include="MainForm.cs">
             <SubType>Form</SubType>
@@ -91,6 +91,11 @@
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="Waypoint\Waypoint.csproj"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Content Include="Resources\beacon.png"/>
+        <Content Include="Resources\icon.ico"/>
+        <EmbeddedResource Include="Resources\JetBrains Mono.ttf"/>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
 </Project>

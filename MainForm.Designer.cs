@@ -2,7 +2,7 @@ using System.Drawing;
 
 namespace Beacon;
 
-partial class MainForm {
+sealed partial class MainForm {
     /// <summary>
     /// Required designer variable.
     /// </summary>
@@ -45,7 +45,7 @@ partial class MainForm {
       this.label2.AutoSize = true;
       this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.label2.ForeColor = System.Drawing.Color.White;
-      this.label2.Location = new System.Drawing.Point(853, -69);
+      this.label2.Location = new System.Drawing.Point(995, -74);
       this.label2.Name = "label2";
       this.label2.Size = new System.Drawing.Size(194, 55);
       this.label2.TabIndex = 2;
@@ -59,11 +59,11 @@ partial class MainForm {
       this.submitButton.FlatAppearance.BorderSize = 0;
       this.submitButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
       this.submitButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Lime;
-      this.submitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.submitButton.Font = new System.Drawing.Font("JetBrains Mono", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.submitButton.ForeColor = System.Drawing.Color.White;
-      this.submitButton.Location = new System.Drawing.Point(33, 591);
+      this.submitButton.Location = new System.Drawing.Point(38, 636);
       this.submitButton.Name = "submitButton";
-      this.submitButton.Size = new System.Drawing.Size(309, 36);
+      this.submitButton.Size = new System.Drawing.Size(360, 39);
       this.submitButton.TabIndex = 7;
       this.submitButton.Text = "Start Scan";
       this.submitButton.UseVisualStyleBackColor = false;
@@ -73,9 +73,9 @@ partial class MainForm {
       this.uploadPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(78)))), ((int)(((byte)(86)))));
       this.uploadPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
       this.uploadPanel.Controls.Add(this.fileLabel);
-      this.uploadPanel.Location = new System.Drawing.Point(33, 76);
+      this.uploadPanel.Location = new System.Drawing.Point(38, 82);
       this.uploadPanel.Name = "uploadPanel";
-      this.uploadPanel.Size = new System.Drawing.Size(309, 29);
+      this.uploadPanel.Size = new System.Drawing.Size(360, 31);
       this.uploadPanel.TabIndex = 9;
       // 
       // fileLabel
@@ -83,12 +83,12 @@ partial class MainForm {
       this.fileLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
       this.fileLabel.AutoEllipsis = true;
       this.fileLabel.Cursor = System.Windows.Forms.Cursors.Hand;
-      this.fileLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.fileLabel.Font = new System.Drawing.Font("JetBrains Mono", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.fileLabel.ForeColor = System.Drawing.Color.White;
       this.fileLabel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-      this.fileLabel.Location = new System.Drawing.Point(22, 0);
+      this.fileLabel.Location = new System.Drawing.Point(26, 0);
       this.fileLabel.Name = "fileLabel";
-      this.fileLabel.Size = new System.Drawing.Size(259, 26);
+      this.fileLabel.Size = new System.Drawing.Size(302, 28);
       this.fileLabel.TabIndex = 1;
       this.fileLabel.Text = "Upload File";
       this.fileLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -98,9 +98,9 @@ partial class MainForm {
       // 
       this.logo.Image = ((System.Drawing.Image)(resources.GetObject("logo.Image")));
       this.logo.InitialImage = ((System.Drawing.Image)(resources.GetObject("logo.InitialImage")));
-      this.logo.Location = new System.Drawing.Point(35, 17);
+      this.logo.Location = new System.Drawing.Point(41, 18);
       this.logo.Name = "logo";
-      this.logo.Size = new System.Drawing.Size(304, 41);
+      this.logo.Size = new System.Drawing.Size(355, 44);
       this.logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
       this.logo.TabIndex = 11;
       this.logo.TabStop = false;
@@ -111,39 +111,41 @@ partial class MainForm {
       this.testsContainer.AutoScroll = true;
       this.testsContainer.ColumnCount = 1;
       this.testsContainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-      this.testsContainer.Location = new System.Drawing.Point(31, 162);
+      this.testsContainer.Location = new System.Drawing.Point(36, 174);
       this.testsContainer.Name = "testsContainer";
       this.testsContainer.RowCount = 1;
       this.testsContainer.RowStyles.Add(new System.Windows.Forms.RowStyle());
-      this.testsContainer.Size = new System.Drawing.Size(309, 405);
+      this.testsContainer.Size = new System.Drawing.Size(360, 436);
       this.testsContainer.TabIndex = 12;
       // 
       // versionString
       // 
+      this.versionString.Font = new System.Drawing.Font("JetBrains Mono", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.versionString.ForeColor = System.Drawing.Color.White;
-      this.versionString.Location = new System.Drawing.Point(268, 43);
+      this.versionString.Location = new System.Drawing.Point(313, 46);
       this.versionString.Name = "versionString";
-      this.versionString.Size = new System.Drawing.Size(100, 15);
+      this.versionString.Size = new System.Drawing.Size(117, 16);
       this.versionString.TabIndex = 13;
       this.versionString.Text = "version";
       // 
       // workspaceTypeSelect
       // 
       this.workspaceTypeSelect.BackColor = System.Drawing.Color.FloralWhite;
+      this.workspaceTypeSelect.Font = new System.Drawing.Font("JetBrains Mono", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.workspaceTypeSelect.FormattingEnabled = true;
-      this.workspaceTypeSelect.Location = new System.Drawing.Point(31, 120);
+      this.workspaceTypeSelect.Location = new System.Drawing.Point(36, 129);
       this.workspaceTypeSelect.Name = "workspaceTypeSelect";
-      this.workspaceTypeSelect.Size = new System.Drawing.Size(311, 21);
+      this.workspaceTypeSelect.Size = new System.Drawing.Size(362, 22);
       this.workspaceTypeSelect.Sorted = true;
       this.workspaceTypeSelect.TabIndex = 14;
       this.workspaceTypeSelect.Text = "Select workspace type";
       // 
       // MainForm
       // 
-      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+      this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(29)))), ((int)(((byte)(43)))));
-      this.ClientSize = new System.Drawing.Size(370, 649);
+      this.ClientSize = new System.Drawing.Size(432, 699);
       this.Controls.Add(this.workspaceTypeSelect);
       this.Controls.Add(this.versionString);
       this.Controls.Add(this.testsContainer);
@@ -151,7 +153,7 @@ partial class MainForm {
       this.Controls.Add(this.uploadPanel);
       this.Controls.Add(this.submitButton);
       this.Controls.Add(this.label2);
-      this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.Font = new System.Drawing.Font("JetBrains Mono", 8.249999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.Location = new System.Drawing.Point(15, 15);

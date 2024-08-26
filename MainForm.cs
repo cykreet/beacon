@@ -12,7 +12,7 @@ using Waypoint;
 
 namespace Beacon;
 
-public partial class MainForm : Form {
+public sealed partial class MainForm : Form {
   public static readonly Color backColour = ColorTranslator.FromHtml("#0f111a");
   private readonly string fontFamily = "Jetbrains Mono";
   private readonly List<FlowLayoutPanel> testContainers = [];
@@ -23,6 +23,16 @@ public partial class MainForm : Form {
     // set DWMWA_USE_IMMERSIVE_DARK_MODE (value of 20) to true to style window in dark mode
     // https://codingguides.quinnscomputing.com/2022/05/how-to-enable-dark-title-bar-in-windows.html
     DwmSetWindowAttribute(this.Handle, 20, ref windowValue, Marshal.SizeOf(windowValue));
+
+    // todo: rider doesn't support adding files to resources, and im not installing visual studio just for this
+    // PrivateFontCollection privateFontCollection = new();
+    // var fontLength = Properties.Resources.JetBrains_Mono_Font.Length;
+    // byte[] fontData = Properties.Resources.JetBrains_Mono_Font;
+    // var memoryData = Marshal.AllocCoTaskMem(fontLength);
+    // Marshal.Copy(fontData, 0, memoryData, fontLength);
+
+    // privateFontCollection.AddMemoryFont(memoryData, fontLength);
+    // this.Font = new Font(privateFontCollection.Families[0], this.Font.Size);    
 
     this.FormBorderStyle = FormBorderStyle.None;
     this.InitializeComponent();
