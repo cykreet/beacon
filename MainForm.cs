@@ -191,9 +191,13 @@ public partial class MainForm : Form {
   }
 
   private void onWarningHover(object sender, EventArgs eventArgs) {
-    if (sender is not Label warningSender) return;
-    var warnings = warningSender.Tag as string;
-    this.warningTooltip.Show(warnings, warningSender);
+    if (sender is not Label statusIndicator) return;
+    if (statusIndicator.Tag is not string warnings) {
+      this.warningTooltip.Hide(statusIndicator);
+      return;
+    }
+
+    this.warningTooltip.Show(warnings, statusIndicator);
   }
 
   private void onTestComplete(object? sender, TestResult result) {
@@ -203,20 +207,20 @@ public partial class MainForm : Form {
     Task.Run(() => {
       var testType = (Type)sender!;
       var testContainer = this.testContainers.Find(container => container.Name == testType.Name);
-      var warningIndicator = testContainer.Controls.Find("statusIndicator", true).FirstOrDefault();
+      var statusIndicator = testContainer.Controls.Find("statusIndicator", true).FirstOrDefault();
       var containerTag = (ContainerTag)testContainer.Tag;
       containerTag.state = result.passed ? ContainerState.Success : ContainerState.Failure;
       testContainer.Tag = containerTag;
 
-      if (warningIndicator != null) {
+      if (statusIndicator != null) {
         switch (containerTag.state) {
           case ContainerState.Failure:
-            warningIndicator.ForeColor = Color.Crimson;
-            warningIndicator.Text = @"!";
+            statusIndicator.ForeColor = Color.Crimson;
+            statusIndicator.Text = @"!";
             break;
           case ContainerState.Success:
-            warningIndicator.ForeColor = Color.PaleGreen;
-            warningIndicator.Text = @"✓";
+            statusIndicator.ForeColor = Color.PaleGreen;
+            statusIndicator.Text = @"✓";
             break;
           case ContainerState.Default:
           case ContainerState.Loading:
@@ -224,8 +228,7 @@ public partial class MainForm : Form {
             throw new ArgumentOutOfRangeException();
         }
 
-        var warnings = string.Join("\n", result.warnings);
-        warningIndicator.Tag = warnings;
+        statusIndicator.Tag = result.warnings.Any() ? string.Join("\n", result.warnings) : null;
       }
 
       testContainer.Invalidate();

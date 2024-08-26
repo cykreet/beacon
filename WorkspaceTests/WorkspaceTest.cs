@@ -40,7 +40,9 @@ public abstract class WorkspaceTest {
 
   public (bool passed, IReadOnlyList<string> warnings) validateAndWarn(TestContext context) {
     var passed = this.validate(context);
-    return (passed, this.warnings);
+    var result = (passed, this.warnings.ToList());
+    this.warnings.Clear();
+    return result;
   }
 
   protected abstract bool validate(TestContext context);
