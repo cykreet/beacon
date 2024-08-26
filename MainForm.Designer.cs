@@ -27,7 +27,6 @@ partial class MainForm {
     /// </summary>
     private void InitializeComponent()
     {
-      this.components = new System.ComponentModel.Container();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
       this.label2 = new System.Windows.Forms.Label();
       this.submitButton = new System.Windows.Forms.Button();
@@ -35,7 +34,6 @@ partial class MainForm {
       this.fileLabel = new System.Windows.Forms.Label();
       this.logo = new System.Windows.Forms.PictureBox();
       this.testsContainer = new System.Windows.Forms.TableLayoutPanel();
-      this.tooltip = new System.Windows.Forms.ToolTip(this.components);
       this.versionString = new System.Windows.Forms.Label();
       this.workspaceTypeSelect = new System.Windows.Forms.ComboBox();
       this.uploadPanel.SuspendLayout();
@@ -170,8 +168,6 @@ partial class MainForm {
     private System.Windows.Forms.ComboBox workspaceTypeSelect;
 
     private System.Windows.Forms.Label versionString;
-
-    private System.Windows.Forms.ToolTip tooltip;
 
     private System.Windows.Forms.TableLayoutPanel testsContainer;
 

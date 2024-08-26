@@ -55,6 +55,7 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="Beacon.cs"/>
+        <Compile Include="Controls\WarningTooltip.cs"/>
         <Compile Include="Plugins\BeaconPlugin.cs"/>
         <Compile Include="Plugins\PluginLoader.cs"/>
         <Compile Include="WorkspaceTests/*.cs"/>

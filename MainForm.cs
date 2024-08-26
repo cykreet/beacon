@@ -6,13 +6,16 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Beacon.Controls;
 using Beacon.WorkspaceTests;
 
 namespace Beacon;
 
 public partial class MainForm : Form {
+  public static readonly Color backColour = ColorTranslator.FromHtml("#0f111a");
   private readonly string fontFamily = "Jetbrains Mono";
   private readonly List<FlowLayoutPanel> testContainers = [];
+  private readonly WarningTooltip warningTooltip = new();
 
   public MainForm() {
     var windowValue = true;
@@ -43,19 +46,13 @@ public partial class MainForm : Form {
     this.workspaceTypeSelect.Items.AddRange(workspaceTypes);
   }
 
-  private void createWarningContainer() {
-    var warningContainer = new TableLayoutPanel();
-    warningContainer.ColumnCount = 1;
-    warningContainer.RowCount = 1;
-  }
-
   private void createWorkspaceTestList() {
     var workspaceTests = Assembly.GetExecutingAssembly().GetTypes()
       .Where(type => type.IsSubclassOf(typeof(WorkspaceTest)) && !type.IsAbstract);
 
     foreach (var testType in workspaceTests) {
       var container = new FlowLayoutPanel();
-      container.BackColor = ColorTranslator.FromHtml("#0f111a");
+      container.BackColor = backColour;
       container.Margin = new Padding(0, 0, 0, 10);
       container.Padding = new Padding(5);
       container.AutoSize = true;
@@ -91,10 +88,9 @@ public partial class MainForm : Form {
       statusIndicator.AutoSize = true;
       statusIndicator.Name = "statusIndicator";
       statusIndicator.Anchor = AnchorStyles.Right;
-      statusIndicator.Font = new Font(this.fontFamily, 12f, FontStyle.Bold);
+      statusIndicator.Font = new Font(this.fontFamily, 14f, FontStyle.Bold);
       // using visibility caused thread to hang, this is an annoying but easy fix
-      statusIndicator.ForeColor = ColorTranslator.FromHtml("#0f111a");
-      statusIndicator.Text = "!";
+      statusIndicator.ForeColor = backColour;
       statusIndicator.Dock = DockStyle.Right;
       // we have to handle tooltip hovers on our own, because for some reason just using
       // tooltip.SetToolTip also causes the thread to hang unnecessarily long and then crash
@@ -179,7 +175,11 @@ public partial class MainForm : Form {
       if (containerTag.state == ContainerState.Default) continue;
 
       var statusIndicator = container.Controls.Find("statusIndicator", true).FirstOrDefault();
-      if (statusIndicator != null) statusIndicator.ForeColor = ColorTranslator.FromHtml("#0f111a");
+      if (statusIndicator != null) {
+        statusIndicator.ForeColor = backColour;
+        statusIndicator.Tag = null;
+      }
+
       containerTag.state = ContainerState.Default;
       container.Tag = containerTag;
       container.Invalidate();
@@ -193,7 +193,7 @@ public partial class MainForm : Form {
   private void onWarningHover(object sender, EventArgs eventArgs) {
     if (sender is not Label warningSender) return;
     var warnings = warningSender.Tag as string;
-    this.tooltip.Show(warnings, warningSender);
+    this.warningTooltip.Show(warnings, warningSender);
   }
 
   private void onTestComplete(object? sender, TestResult result) {

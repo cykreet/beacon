@@ -24,14 +24,11 @@ internal class SizeWorkspaceTest : WorkspaceTest {
   protected override bool validate(TestContext context) {
     var workspaceSize = context.zipArchive.entries.Aggregate(0f, (acc, entry) => {
       var mimeType = MimeMapping.GetMimeMapping(entry.Name);
-      Sentry.debug($"file mime: {mimeType}");
       var compressionRatio = this.getCompressionRatio(mimeType);
-      Sentry.debug($"compression ratio: {compressionRatio}");
       var estimatedCompressedSize = entry.Length * compressionRatio;
       const double threshold = maxWorkspaceSizeBytes / 2;
-      var sizeMegaBytes = entry.Length / 1e+6;
       if (estimatedCompressedSize > threshold)
-        this.addWarning($"File {entry.Name} is unusually large at length {sizeMegaBytes}MB.");
+        this.addWarning($"File {entry.Name} is unusually large at length {entry.Length / 1e+6}MB.");
       return acc += entry.Length;
     });
 
