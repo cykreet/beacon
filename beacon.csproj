@@ -56,11 +56,9 @@
     <ItemGroup>
         <Compile Include="Beacon.cs"/>
         <Compile Include="Controls\WarningTooltip.cs"/>
-        <Compile Include="Plugins\BeaconPlugin.cs"/>
         <Compile Include="Plugins\PluginLoader.cs"/>
         <Compile Include="WorkspaceTests/*.cs"/>
         <Compile Include="Sentry.cs"/>
-        <Compile Include="ZipReader.cs"/>
         <Compile Include="MainForm.cs">
             <SubType>Form</SubType>
         </Compile>
@@ -90,6 +88,9 @@
     </ItemGroup>
     <ItemGroup>
         <None Include="App.config"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="Waypoint\Waypoint.csproj"/>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
 </Project>

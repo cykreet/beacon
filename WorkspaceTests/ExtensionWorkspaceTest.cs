@@ -1,6 +1,7 @@
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using Waypoint;
 
 namespace Beacon.WorkspaceTests;
 
@@ -39,7 +40,7 @@ internal class ExtensionWorkspaceTest : WorkspaceTest {
     var extension = Path.GetExtension(entry.FullName);
     if (allowedExtensions.Contains(extension)) return false;
     this.addWarning(
-      $"Entry \"{entry.FullName}\" uses illegal extension \"{(extension.Any() ? extension : "NO EXTENSION")}\"."
+      $"File \"{entry.FullName}\" uses illegal extension \"{(extension.Any() ? extension : "NO EXTENSION")}\"."
     );
     return true;
   }

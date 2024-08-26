@@ -1,5 +1,7 @@
 using System.IO.Compression;
 
+namespace Waypoint;
+
 /*
   Middleman class for reading and managing opened zip file handles
   allowing for thread-safe access to zip file contents.

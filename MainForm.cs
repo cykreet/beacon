@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Beacon.Controls;
 using Beacon.WorkspaceTests;
+using Waypoint;
 
 namespace Beacon;
 

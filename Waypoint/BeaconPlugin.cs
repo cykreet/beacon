@@ -1,6 +1,4 @@
-using Beacon.WorkspaceTests;
-
-namespace Beacon.Plugins;
+namespace Waypoint;
 
 public interface BeaconPlugin {
   string pluginName { get; set; }

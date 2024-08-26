@@ -1,3 +1,5 @@
+using Waypoint;
+
 namespace Beacon.WorkspaceTests;
 
 [TestName("Encryption")]
