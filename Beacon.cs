@@ -24,10 +24,10 @@ internal static class Program {
 
     var pluginPath = Path.Combine(Application.StartupPath, "plugins");
     var plugins = PluginLoader.loadPlugins(pluginPath);
-    foreach (var plugin in plugins) {
-      if (plugin is not WorkspaceTest pluginTest) continue;
+    foreach (var plugin in plugins)
+    foreach (var pluginTest in plugin.workspaceTests) {
       testRunner.registerTest(pluginTest);
-      Sentry.info($"Registered plugin {plugin.pluginName}");
+      Sentry.info($"Registered test {pluginTest.GetType().Name} from plugin {plugin}");
     }
 
     Application.EnableVisualStyles();
