@@ -37,7 +37,7 @@ partial class MainForm {
       this.testsContainer = new System.Windows.Forms.TableLayoutPanel();
       this.tooltip = new System.Windows.Forms.ToolTip(this.components);
       this.versionString = new System.Windows.Forms.Label();
-      this.workspaceSelect = new System.Windows.Forms.ComboBox();
+      this.workspaceTypeSelect = new System.Windows.Forms.ComboBox();
       this.uploadPanel.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
       this.SuspendLayout();
@@ -129,16 +129,16 @@ partial class MainForm {
       this.versionString.TabIndex = 13;
       this.versionString.Text = "version";
       // 
-      // workspaceSelect
+      // workspaceTypeSelect
       // 
-      this.workspaceSelect.BackColor = System.Drawing.Color.FloralWhite;
-      this.workspaceSelect.FormattingEnabled = true;
-      this.workspaceSelect.Location = new System.Drawing.Point(31, 120);
-      this.workspaceSelect.Name = "workspaceSelect";
-      this.workspaceSelect.Size = new System.Drawing.Size(311, 22);
-      this.workspaceSelect.Sorted = true;
-      this.workspaceSelect.TabIndex = 14;
-      this.workspaceSelect.Text = "Select workspace type";
+      this.workspaceTypeSelect.BackColor = System.Drawing.Color.FloralWhite;
+      this.workspaceTypeSelect.FormattingEnabled = true;
+      this.workspaceTypeSelect.Location = new System.Drawing.Point(31, 120);
+      this.workspaceTypeSelect.Name = "workspaceTypeSelect";
+      this.workspaceTypeSelect.Size = new System.Drawing.Size(311, 22);
+      this.workspaceTypeSelect.Sorted = true;
+      this.workspaceTypeSelect.TabIndex = 14;
+      this.workspaceTypeSelect.Text = "Select workspace type";
       // 
       // MainForm
       // 
@@ -146,7 +146,7 @@ partial class MainForm {
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(29)))), ((int)(((byte)(43)))));
       this.ClientSize = new System.Drawing.Size(370, 649);
-      this.Controls.Add(this.workspaceSelect);
+      this.Controls.Add(this.workspaceTypeSelect);
       this.Controls.Add(this.versionString);
       this.Controls.Add(this.testsContainer);
       this.Controls.Add(this.logo);
@@ -167,7 +167,7 @@ partial class MainForm {
       this.PerformLayout();
     }
 
-    private System.Windows.Forms.ComboBox workspaceSelect;
+    private System.Windows.Forms.ComboBox workspaceTypeSelect;
 
     private System.Windows.Forms.Label versionString;
 

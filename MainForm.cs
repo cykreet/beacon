@@ -22,18 +22,31 @@ public partial class MainForm : Form {
 
     this.FormBorderStyle = FormBorderStyle.None;
     this.InitializeComponent();
+    this.insertWorkspaceTypes();
     this.createWorkspaceTestList();
     this.versionString.Text = Application.ProductVersion;
+
+    var testRunner = Program.getTestRunner();
+    this.fileLabel.Click += this.onUploadPanelClick;
+    testRunner!.testComplete += this.onTestComplete;
+    this.submitButton.Click += this.onSubmitButtonClick;
+    this.workspaceTypeSelect.SelectedValueChanged += onWorkspaceTypeSelect;
   }
 
   [DllImport("dwmapi.dll", PreserveSig = true)]
   private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, ref bool attrValue, int attrSize);
 
-  private void MainForm_Load(object sender, EventArgs e) {
-    var testRunner = Program.getTestRunner();
-    this.fileLabel.Click += this.onUploadPanelClick;
-    testRunner!.testComplete += this.onTestComplete;
-    this.submitButton.Click += this.onSubmitButtonClick;
+  private void MainForm_Load(object sender, EventArgs eventArgs) { }
+
+  private void insertWorkspaceTypes() {
+    var workspaceTypes = Enum.GetNames(typeof(WorkspaceType));
+    this.workspaceTypeSelect.Items.AddRange(workspaceTypes);
+  }
+
+  private void createWarningContainer() {
+    var warningContainer = new TableLayoutPanel();
+    warningContainer.ColumnCount = 1;
+    warningContainer.RowCount = 1;
   }
 
   private void createWorkspaceTestList() {
@@ -74,18 +87,18 @@ public partial class MainForm : Form {
       nameLabel.Font = new Font(this.fontFamily, 12f, FontStyle.Bold);
       nameLabel.Text = testName + " Test";
 
-      var warningIndicator = new Label();
-      warningIndicator.AutoSize = true;
-      warningIndicator.Name = "warningIndicator";
-      warningIndicator.Anchor = AnchorStyles.Right;
-      warningIndicator.Font = new Font(this.fontFamily, 12f, FontStyle.Bold);
+      var statusIndicator = new Label();
+      statusIndicator.AutoSize = true;
+      statusIndicator.Name = "statusIndicator";
+      statusIndicator.Anchor = AnchorStyles.Right;
+      statusIndicator.Font = new Font(this.fontFamily, 12f, FontStyle.Bold);
       // using visibility caused thread to hang, this is an annoying but easy fix
-      warningIndicator.ForeColor = ColorTranslator.FromHtml("#0f111a");
-      warningIndicator.Text = "!";
-      warningIndicator.Dock = DockStyle.Right;
+      statusIndicator.ForeColor = ColorTranslator.FromHtml("#0f111a");
+      statusIndicator.Text = "!";
+      statusIndicator.Dock = DockStyle.Right;
       // we have to handle tooltip hovers on our own, because for some reason just using
       // tooltip.SetToolTip also causes the thread to hang unnecessarily long and then crash
-      warningIndicator.MouseHover += this.onWarningHover;
+      statusIndicator.MouseHover += this.onWarningHover;
 
       headerContainer.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
       headerContainer.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
@@ -96,7 +109,7 @@ public partial class MainForm : Form {
       headerContainer.Controls.Add(nameLabel, 1, 0);
       // panel fills space for warning indicator to appear on the right
       headerContainer.Controls.Add(new Panel(), 2, 0);
-      headerContainer.Controls.Add(warningIndicator, 3, 0);
+      headerContainer.Controls.Add(statusIndicator, 3, 0);
       headerContainer.MaximumSize = new Size(int.MaxValue, nameLabel.Height);
 
       var descriptionLabel = new Label();
@@ -116,10 +129,16 @@ public partial class MainForm : Form {
     }
   }
 
+  private static void onWorkspaceTypeSelect(object sender, EventArgs eventArgs) {
+    var testRunner = Program.getTestRunner();
+    var comboBox = (ComboBox)sender;
+    var workspaceType = (WorkspaceType)Enum.Parse(typeof(WorkspaceType), comboBox.SelectedItem.ToString());
+    testRunner?.setWorkspaceType(workspaceType);
+  }
+
   private static void onContainerPaint(object sender, PaintEventArgs eventArgs) {
     if (sender is not FlowLayoutPanel container) return;
     var containerTag = container.Tag is ContainerTag tag ? tag : default;
-    Sentry.debug($"container state: {containerTag.state}");
     var borderColour = Color.RoyalBlue;
     switch (containerTag.state) {
       case ContainerState.Failure:
@@ -141,8 +160,8 @@ public partial class MainForm : Form {
 
   private void onUploadPanelClick(object sender, EventArgs eventArgs) {
     var dialog = new OpenFileDialog();
-    dialog.Title = "Select a file to scan";
-    dialog.Filter = "Zip files (*.zip)|*.zip";
+    dialog.Title = @"Select a file to scan";
+    dialog.Filter = @"Zip files (*.zip)|*.zip";
     if (dialog.ShowDialog() != DialogResult.OK) return;
     this.fileLabel.Text = dialog.SafeFileName;
 
@@ -159,14 +178,15 @@ public partial class MainForm : Form {
       var containerTag = (ContainerTag)container.Tag;
       if (containerTag.state == ContainerState.Default) continue;
 
-      var warningIndicator = container.Controls.Find("warningIndicator", true).FirstOrDefault();
-      if (warningIndicator != null) warningIndicator.ForeColor = ColorTranslator.FromHtml("#0f111a");
+      var statusIndicator = container.Controls.Find("statusIndicator", true).FirstOrDefault();
+      if (statusIndicator != null) statusIndicator.ForeColor = ColorTranslator.FromHtml("#0f111a");
       containerTag.state = ContainerState.Default;
       container.Tag = containerTag;
       container.Invalidate();
       container.Update();
     }
 
+    if (this.workspaceTypeSelect.SelectedItem == null) return;
     Task.Run(() => Program.getTestRunner()?.runTests());
   }
 
@@ -183,13 +203,27 @@ public partial class MainForm : Form {
     Task.Run(() => {
       var testType = (Type)sender!;
       var testContainer = this.testContainers.Find(container => container.Name == testType.Name);
-      var warningIndicator = testContainer.Controls.Find("warningIndicator", true).FirstOrDefault();
+      var warningIndicator = testContainer.Controls.Find("statusIndicator", true).FirstOrDefault();
       var containerTag = (ContainerTag)testContainer.Tag;
       containerTag.state = result.passed ? ContainerState.Success : ContainerState.Failure;
       testContainer.Tag = containerTag;
 
-      if (warningIndicator != null && containerTag.state == ContainerState.Failure) {
-        warningIndicator.ForeColor = Color.Crimson;
+      if (warningIndicator != null) {
+        switch (containerTag.state) {
+          case ContainerState.Failure:
+            warningIndicator.ForeColor = Color.Crimson;
+            warningIndicator.Text = @"!";
+            break;
+          case ContainerState.Success:
+            warningIndicator.ForeColor = Color.PaleGreen;
+            warningIndicator.Text = @"✓";
+            break;
+          case ContainerState.Default:
+          case ContainerState.Loading:
+          default:
+            throw new ArgumentOutOfRangeException();
+        }
+
         var warnings = string.Join("\n", result.warnings);
         warningIndicator.Tag = warnings;
       }

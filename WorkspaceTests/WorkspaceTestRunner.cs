@@ -16,9 +16,11 @@ internal readonly struct TestResult(bool passed, IReadOnlyList<string> warnings)
 internal class WorkspaceTestRunner {
   private readonly List<WorkspaceTest> tests = [];
   private ZipReader? workspace;
+  private WorkspaceType workspaceType;
   public event EventHandler<TestResult>? testComplete;
 
   public void setWorkspace(ZipReader zipReader) => this.workspace = zipReader;
+  public void setWorkspaceType(WorkspaceType workspaceType) => this.workspaceType = workspaceType;
   public void registerTest(WorkspaceTest workspaceTest) => this.tests.Add(workspaceTest);
 
   public void enableTest(Type testType) {
@@ -48,7 +50,7 @@ internal class WorkspaceTestRunner {
   public void runTests() {
     var context = new TestContext {
       zipArchive = this.workspace!,
-      workspaceType = WorkspaceType.Javascript
+      workspaceType = this.workspaceType
     };
 
     foreach (var test in this.tests) {
