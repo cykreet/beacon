@@ -16,7 +16,7 @@ namespace Beacon;
 
 public sealed partial class MainForm : Form {
   public static readonly Color backColour = ColorTranslator.FromHtml("#0f111a");
-  private readonly string fontFamily = "Jetbrains Mono";
+  private readonly string fontFamily = "JetBrains Mono";
   private readonly List<FlowLayoutPanel> testContainers = [];
   private readonly WarningTooltip warningTooltip = new();
 
