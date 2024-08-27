@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Text;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -26,19 +25,17 @@ public sealed partial class MainForm : Form {
     // https://codingguides.quinnscomputing.com/2022/05/how-to-enable-dark-title-bar-in-windows.html
     DwmSetWindowAttribute(this.Handle, 20, ref windowValue, Marshal.SizeOf(windowValue));
 
-    const string resourcePath = "Beacon.Resources.JetBrains Mono.ttf";
-    using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourcePath)) {
-      using (var streamReader = new MemoryStream()) {
-        stream?.CopyTo(streamReader);
-        PrivateFontCollection privateFontCollection = new();
-        var fontData = streamReader.ToArray();
-        var fontLength = fontData.Length;
-        var memoryData = Marshal.AllocCoTaskMem(fontLength);
-        Marshal.Copy(fontData, 0, memoryData, fontLength);
-        privateFontCollection.AddMemoryFont(memoryData, fontLength);
-        this.Font = new Font(privateFontCollection.Families[0], this.Font.Size);
-      }
-    }
+    var privateFontCollection = new PrivateFontCollection();
+    var resourceStream =
+      Assembly.GetExecutingAssembly().GetManifestResourceStream("Beacon.Resources.JetBrains Mono.ttf");
+    var fontBytes = new byte[resourceStream.Length];
+    resourceStream.Read(fontBytes, 0, (int)resourceStream.Length);
+    resourceStream.Close();
+
+    var fontData = Marshal.AllocCoTaskMem(fontBytes.Length);
+    Marshal.Copy(fontBytes, 0, fontData, fontBytes.Length);
+    privateFontCollection.AddMemoryFont(fontData, fontBytes.Length);
+    this.Font = new Font(privateFontCollection.Families[0], this.Font.Size, FontStyle.Regular);
 
     this.FormBorderStyle = FormBorderStyle.None;
     this.InitializeComponent();
