@@ -96,7 +96,7 @@
         <Content Include="Resources\beacon.png"/>
         <Content Include="Resources\icon.ico"/>
         <Content Include="Resources\preview.png"/>
-        <EmbeddedResource Include="Resources\JetBrains Mono.ttf"/>
+        <EmbeddedResource Include="Resources\JetBrainsMono.ttf"/>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
 </Project>
