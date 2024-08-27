@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using Beacon.Controls;
 using Beacon.WorkspaceTests;
 using Waypoint;
+using System.IO;
+
 
 namespace Beacon;
 
@@ -25,14 +27,38 @@ public sealed partial class MainForm : Form {
     DwmSetWindowAttribute(this.Handle, 20, ref windowValue, Marshal.SizeOf(windowValue));
 
     // todo: rider doesn't support adding files to resources, and im not installing visual studio just for this
-    // PrivateFontCollection privateFontCollection = new();
+    
+   
+      // Determine path
+      var assembly = Assembly.GetExecutingAssembly();
+      string resourcePath = name;
+      // Format: "{Namespace}.{Folder}.{filename}.{Extension}"
+      if (!name.StartsWith(nameof(SignificantDrawerCompiler)))
+      {
+        resourcePath = assembly.GetManifestResourceNames()
+          .Single(str => str.EndsWith(name));
+      }
+
+      using (Stream stream = assembly.GetManifestResourceStream(resourcePath)) {
+        byte[] result;
+        using (var streamReader = new MemoryStream())
+        {
+          InputStream.CopyTo(streamReader);
+          result = streamReader.ToArray(); // fontData
+        }
+        var bytes = new byte[stream.Length];
+        var fontData = stream.Read(bytes, (int)stream.Length, (int)stream.Length);
+        var fontLength = bytes.Length;
+        var memoryData = Marshal.AllocCoTaskMem(fontLength);
+        Marshal.Copy(bytes, 0, memoryData, fontLength);
+        privateFontCollection.AddMemoryFont(memoryData, fontLength);
+        this.Font = new Font(privateFontCollection.Families[0], this.Font.Size);    
+      }
+      
+      // PrivateFontCollection privateFontCollection = new();
     // var fontLength = Properties.Resources.JetBrains_Mono_Font.Length;
     // byte[] fontData = Properties.Resources.JetBrains_Mono_Font;
-    // var memoryData = Marshal.AllocCoTaskMem(fontLength);
-    // Marshal.Copy(fontData, 0, memoryData, fontLength);
-
-    // privateFontCollection.AddMemoryFont(memoryData, fontLength);
-    // this.Font = new Font(privateFontCollection.Families[0], this.Font.Size);    
+    
 
     this.FormBorderStyle = FormBorderStyle.None;
     this.InitializeComponent();
