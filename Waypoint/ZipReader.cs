@@ -7,6 +7,7 @@ namespace Waypoint;
   allowing for thread-safe access to zip file contents.
 */
 public class ZipReader {
+  public readonly string archivePath;
   public readonly ZipArchiveEntry[] entries;
   public readonly bool isEncrypted;
   private readonly ZipArchive zipArchive;
@@ -14,6 +15,7 @@ public class ZipReader {
   public ZipReader(string path) {
     this.zipArchive = ZipFile.OpenRead(path);
     this.isEncrypted = false;
+    this.archivePath = path;
     this.entries = [.. this.zipArchive.Entries];
   }
 }

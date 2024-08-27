@@ -58,9 +58,8 @@ public sealed partial class MainForm : Form {
   }
 
   private void createWorkspaceTestList() {
-    var workspaceTests = Assembly.GetExecutingAssembly().GetTypes()
-      .Where(type => type.IsSubclassOf(typeof(WorkspaceTest)) && !type.IsAbstract);
-
+    var workspaceTests = Program.getTestRunner()?.getTests().Select(test => test.GetType());
+    if (workspaceTests == null) return;
     foreach (var testType in workspaceTests) {
       var container = new FlowLayoutPanel();
       container.BackColor = backColour;
@@ -211,10 +210,7 @@ public sealed partial class MainForm : Form {
     this.warningTooltip.Show(warnings, statusIndicator);
   }
 
-  private void onTestComplete(object? sender, TestResult result) {
-    Sentry.info(
-      $"Test completed: \x1b[1m{(result.passed ? "\x1b[92mPASSED" : "\x1b[91mFAILED")}\x1b[22m\x1b[39m");
-
+  private void onTestComplete(object? sender, TestResult result) =>
     Task.Run(() => {
       var testType = (Type)sender!;
       var testContainer = this.testContainers.Find(container => container.Name == testType.Name);
@@ -250,7 +246,6 @@ public sealed partial class MainForm : Form {
       testContainer.Invalidate();
       testContainer.Update();
     });
-  }
 
   private static void onTestChecked(object sender, EventArgs eventArgs) {
     var checkbox = (CheckBox)sender;

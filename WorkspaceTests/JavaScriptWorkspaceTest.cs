@@ -12,7 +12,6 @@ internal class JavaScriptWorkspaceTest : WorkspaceTest {
     var allFilesValid = true;
     foreach (var entry in context.zipArchive.entries) {
       if (!Path.GetExtension(entry.FullName).EndsWith(".js")) continue;
-
       using var reader = new StreamReader(entry.Open());
       var jsCode = reader.ReadToEnd();
       if (Regex.IsMatch(jsCode, @"\beval\s*\(")) {

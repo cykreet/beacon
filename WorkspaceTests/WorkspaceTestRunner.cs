@@ -20,6 +20,7 @@ internal class WorkspaceTestRunner {
   private WorkspaceType workspaceType;
   public event EventHandler<TestResult>? testComplete;
 
+  public List<WorkspaceTest> getTests() => this.tests;
   public void setWorkspace(ZipReader zipReader) => this.workspace = zipReader;
   public void setWorkspaceType(WorkspaceType workspaceType) => this.workspaceType = workspaceType;
   public void registerTest(WorkspaceTest workspaceTest) => this.tests.Add(workspaceTest);
@@ -47,6 +48,7 @@ internal class WorkspaceTestRunner {
 
     throw new TestNotFoundException(testType.Name);
   }
+
 
   public void runTests() {
     var context = new TestContext {

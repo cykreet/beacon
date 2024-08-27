@@ -38,6 +38,7 @@ internal class ExtensionWorkspaceTest : WorkspaceTest {
 
   private bool testEntry(string[] allowedExtensions, ZipArchiveEntry entry) {
     var extension = Path.GetExtension(entry.FullName);
+    if (extension.EndsWith("/")) return false;
     if (allowedExtensions.Contains(extension)) return false;
     this.addWarning(
       $"File \"{entry.FullName}\" uses illegal extension \"{(extension.Any() ? extension : "NO EXTENSION")}\"."
