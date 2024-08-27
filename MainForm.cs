@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Text;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -9,8 +11,6 @@ using System.Windows.Forms;
 using Beacon.Controls;
 using Beacon.WorkspaceTests;
 using Waypoint;
-using System.IO;
-
 
 namespace Beacon;
 
@@ -26,39 +26,19 @@ public sealed partial class MainForm : Form {
     // https://codingguides.quinnscomputing.com/2022/05/how-to-enable-dark-title-bar-in-windows.html
     DwmSetWindowAttribute(this.Handle, 20, ref windowValue, Marshal.SizeOf(windowValue));
 
-    // todo: rider doesn't support adding files to resources, and im not installing visual studio just for this
-    
-   
-      // Determine path
-      var assembly = Assembly.GetExecutingAssembly();
-      string resourcePath = name;
-      // Format: "{Namespace}.{Folder}.{filename}.{Extension}"
-      if (!name.StartsWith(nameof(SignificantDrawerCompiler)))
-      {
-        resourcePath = assembly.GetManifestResourceNames()
-          .Single(str => str.EndsWith(name));
-      }
-
-      using (Stream stream = assembly.GetManifestResourceStream(resourcePath)) {
-        byte[] result;
-        using (var streamReader = new MemoryStream())
-        {
-          InputStream.CopyTo(streamReader);
-          result = streamReader.ToArray(); // fontData
-        }
-        var bytes = new byte[stream.Length];
-        var fontData = stream.Read(bytes, (int)stream.Length, (int)stream.Length);
-        var fontLength = bytes.Length;
+    const string resourcePath = "Beacon.Resources.JetBrains Mono.ttf";
+    using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(resourcePath)) {
+      using (var streamReader = new MemoryStream()) {
+        stream?.CopyTo(streamReader);
+        PrivateFontCollection privateFontCollection = new();
+        var fontData = streamReader.ToArray();
+        var fontLength = fontData.Length;
         var memoryData = Marshal.AllocCoTaskMem(fontLength);
-        Marshal.Copy(bytes, 0, memoryData, fontLength);
+        Marshal.Copy(fontData, 0, memoryData, fontLength);
         privateFontCollection.AddMemoryFont(memoryData, fontLength);
-        this.Font = new Font(privateFontCollection.Families[0], this.Font.Size);    
+        this.Font = new Font(privateFontCollection.Families[0], this.Font.Size);
       }
-      
-      // PrivateFontCollection privateFontCollection = new();
-    // var fontLength = Properties.Resources.JetBrains_Mono_Font.Length;
-    // byte[] fontData = Properties.Resources.JetBrains_Mono_Font;
-    
+    }
 
     this.FormBorderStyle = FormBorderStyle.None;
     this.InitializeComponent();
@@ -119,6 +99,15 @@ public sealed partial class MainForm : Form {
       nameLabel.ForeColor = Color.White;
       nameLabel.Font = new Font(this.fontFamily, 12f, FontStyle.Bold);
       nameLabel.Text = testName + " Test";
+
+      // var rootNamespace = this.GetType().Namespace?.Split('.').First();
+      // var namespaceLabel = new Label();
+      // namespaceLabel.AutoSize = true;
+      // namespaceLabel.ForeColor = Color.DimGray;
+      // namespaceLabel.Font = new Font(this.fontFamily, 8f, FontStyle.Bold);
+      // namespaceLabel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+      // namespaceLabel.Visible = testType.Namespace!.Contains(rootNamespace!) == false;
+      // namespaceLabel.Text = testType.Namespace.Split('.').First();
 
       var statusIndicator = new Label();
       statusIndicator.AutoSize = true;

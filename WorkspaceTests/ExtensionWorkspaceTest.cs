@@ -10,7 +10,7 @@ namespace Beacon.WorkspaceTests;
 internal class ExtensionWorkspaceTest : WorkspaceTest {
   private static readonly string[] commonExtensions = [
     ".txt", ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx", ".csv", ".xml", ".json", ".zip", ".rar", ".7z",
-    ".md", ".yml", ".yaml", ".ini", ".cfg", ".config", ".log", ".gitignore", ".gitattributes"
+    ".md", ".yml", ".yaml", ".ini", ".cfg", ".config", ".log", ".gitignore", ".gitattributes", ".html", ".css"
   ];
 
   [AppliedWorkspace(WorkspaceType.Javascript)]
@@ -23,7 +23,7 @@ internal class ExtensionWorkspaceTest : WorkspaceTest {
   private static readonly string[] cSharpExtensions = [
     ".cs", ".csx", ".vb", ".razor", ".cshtml", ".csproj", ".sln", ".resx", ".config", ".settings", ".xaml", ".asax",
     ".ashx", ".aspx", ".master", ".sitemap", ".browserconfig", ".pubxml", ".targets", ".props", ".nuspec", ".nupkg",
-    ".snk", ".pfx", ".editorconfig"
+    ".snk", ".pfx", ".editorconfig", ".exe"
   ];
 
   protected override bool validate(TestContext context) {
@@ -38,7 +38,7 @@ internal class ExtensionWorkspaceTest : WorkspaceTest {
 
   private bool testEntry(string[] allowedExtensions, ZipArchiveEntry entry) {
     var extension = Path.GetExtension(entry.FullName);
-    if (extension.EndsWith("/")) return false;
+    if (entry.FullName.EndsWith("/")) return false;
     if (allowedExtensions.Contains(extension)) return false;
     this.addWarning(
       $"File \"{entry.FullName}\" uses illegal extension \"{(extension.Any() ? extension : "NO EXTENSION")}\"."
