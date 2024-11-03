@@ -24,13 +24,11 @@ internal class JavaScriptWorkspaceTest : WorkspaceTest {
         allFilesValid = false;
       }
 
-
       if (Regex.IsMatch(jsCode, @"on\w+\s*=\s*[""'].+[""']")) {
         this.addWarning(
           $"File '{entry.FullName}' contains inline event handlers, which can be a vector for XSS attacks.");
         allFilesValid = false;
       }
-
 
       if (Regex.IsMatch(jsCode, @"(['""]).+\1\.split\('\'\)\.reverse\(\)\.join\('\'\)")) {
         this.addWarning(
@@ -38,12 +36,10 @@ internal class JavaScriptWorkspaceTest : WorkspaceTest {
         allFilesValid = false;
       }
 
-
       if (Regex.IsMatch(jsCode, @"for\s*\([^;]*;[^;]*;[^;]*\)\s*\{\s*\}")) {
         this.addWarning($"File '{entry.FullName}' contains a potential infinite loop.");
         allFilesValid = false;
       }
-
 
       if (Regex.IsMatch(jsCode, @"\.innerHTML\s*=")) {
         this.addWarning(

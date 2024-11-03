@@ -67,6 +67,7 @@
         </Compile>
         <Compile Include="Properties\AssemblyInfo.cs"/>
         <EmbeddedResource Include="MainForm.resx"/>
+        <EmbeddedResource Include="Resources\JetBrainsMono.ttf"/>
         <None Include="Properties\Settings.settings">
             <Generator>SettingsSingleFileGenerator</Generator>
             <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -96,7 +97,6 @@
         <Content Include="Resources\beacon.png"/>
         <Content Include="Resources\icon.ico"/>
         <Content Include="Resources\preview.png"/>
-        <EmbeddedResource Include="Resources\JetBrainsMono.ttf"/>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
 </Project>

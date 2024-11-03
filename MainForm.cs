@@ -15,7 +15,7 @@ namespace Beacon;
 
 public sealed partial class MainForm : Form {
   public static readonly Color backColour = ColorTranslator.FromHtml("#0f111a");
-  private readonly string fontFamily = "JetBrains Mono";
+  private readonly FontFamily fontFamily;
   private readonly List<FlowLayoutPanel> testContainers = [];
   private readonly WarningTooltip warningTooltip = new();
 
@@ -28,15 +28,16 @@ public sealed partial class MainForm : Form {
     var privateFontCollection = new PrivateFontCollection();
     var resourceStream =
       Assembly.GetExecutingAssembly().GetManifestResourceStream("Beacon.Resources.JetBrainsMono.ttf");
-    var fontBytes = new byte[resourceStream.Length];
-    resourceStream.Read(fontBytes, 0, (int)resourceStream.Length);
+    var fontLength = (int)resourceStream!.Length;
+    var fontBytes = new byte[fontLength];
+    resourceStream.Read(fontBytes, 0, fontLength);
     resourceStream.Close();
 
-    var fontData = Marshal.AllocCoTaskMem(fontBytes.Length);
-    Marshal.Copy(fontBytes, 0, fontData, fontBytes.Length);
-    privateFontCollection.AddMemoryFont(fontData, fontBytes.Length);
+    var fontData = Marshal.AllocCoTaskMem(fontLength);
+    Marshal.Copy(fontBytes, 0, fontData, fontLength);
+    privateFontCollection.AddMemoryFont(fontData, fontLength);
     this.Font = new Font(privateFontCollection.Families[0], this.Font.Size, FontStyle.Regular);
-    Sentry.debug(privateFontCollection.Families[0].Name);
+    this.fontFamily = privateFontCollection.Families[0];
 
     this.FormBorderStyle = FormBorderStyle.None;
     this.InitializeComponent();
@@ -95,7 +96,7 @@ public sealed partial class MainForm : Form {
       var nameLabel = new Label();
       nameLabel.AutoSize = true;
       nameLabel.ForeColor = Color.White;
-      // nameLabel.Font = new Font(this.fontFamily, 12f, FontStyle.Bold);
+      nameLabel.Font = new Font(this.fontFamily, 12f, FontStyle.Bold);
       nameLabel.Text = testName + " Test";
 
       // var rootNamespace = this.GetType().Namespace?.Split('.').First();
@@ -111,7 +112,7 @@ public sealed partial class MainForm : Form {
       statusIndicator.AutoSize = true;
       statusIndicator.Name = "statusIndicator";
       statusIndicator.Anchor = AnchorStyles.Right;
-      // statusIndicator.Font = new Font(this.Font, 14f, FontStyle.Bold);
+      statusIndicator.Font = new Font(this.fontFamily, 14f, FontStyle.Bold);
       // using visibility caused thread to hang, this is an annoying but easy fix
       statusIndicator.ForeColor = backColour;
       statusIndicator.Dock = DockStyle.Right;
@@ -135,7 +136,7 @@ public sealed partial class MainForm : Form {
       descriptionLabel.AutoSize = true;
       descriptionLabel.Dock = DockStyle.Bottom;
       descriptionLabel.ForeColor = Color.DarkGray;
-      // descriptionLabel.Font = new Font(this.fontFamily, 9f);
+      descriptionLabel.Font = new Font(this.fontFamily, 9f);
       descriptionLabel.Text = testDescription;
 
       container.Controls.Add(headerContainer);

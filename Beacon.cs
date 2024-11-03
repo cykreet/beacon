@@ -27,7 +27,7 @@ internal static class Program {
     foreach (var plugin in plugins)
     foreach (var pluginTest in plugin.workspaceTests) {
       testRunner.registerTest(pluginTest);
-      Sentry.info($"Registered test {pluginTest.GetType().Name} from plugin {plugin}");
+      Sentry.info($"Registered test {pluginTest.GetType().Name} from plugin {plugin.pluginName}");
     }
 
     Application.EnableVisualStyles();
